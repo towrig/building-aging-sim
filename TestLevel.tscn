@@ -1,0 +1,116 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://LogInstance.tscn" type="PackedScene" id=1]
+[ext_resource path="res://TestLevel_slot0_albedo_bump.packed_tex" type="Texture" id=2]
+[ext_resource path="res://Ground.tscn" type="PackedScene" id=3]
+[ext_resource path="res://terrain/data.hterrain" type="Resource" id=4]
+[ext_resource path="res://addons/zylann.hterrain/hterrain_texture_set.gd" type="Script" id=5]
+[ext_resource path="res://addons/zylann.hterrain/hterrain.gd" type="Script" id=6]
+[ext_resource path="res://TestLevel_slot1_albedo_bump.packed_tex" type="Texture" id=7]
+[ext_resource path="res://TestLevel_slot0_normal_roughness.packed_tex" type="Texture" id=8]
+[ext_resource path="res://TestLevel_slot1_normal_roughness.packed_tex" type="Texture" id=9]
+[ext_resource path="res://interface/UI.tscn" type="PackedScene" id=10]
+[ext_resource path="res://assets/log_half.obj" type="ArrayMesh" id=11]
+
+[sub_resource type="Resource" id=1]
+script = ExtResource( 5 )
+mode = 0
+textures = [ [ ExtResource( 2 ), ExtResource( 7 ) ], [ ExtResource( 8 ), ExtResource( 9 ) ] ]
+
+[node name="Spatial" type="Spatial"]
+
+[node name="UI" parent="." instance=ExtResource( 10 )]
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( -4.37114e-08, -0.5, 0.866025, 0, 0.866025, 0.5, -1, 2.18557e-08, -3.78552e-08, 36.6309, 32.4798, -0.003 )
+light_color = Color( 0.996078, 0.988235, 0.819608, 1 )
+light_energy = 1.56
+
+[node name="Floor" parent="." instance=ExtResource( 3 )]
+visible = false
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 25, 6.453, -3.039 )
+keep_aspect = 0
+fov = 90.0
+
+[node name="HTerrain" type="Spatial" parent="."]
+script = ExtResource( 6 )
+_terrain_data = ExtResource( 4 )
+chunk_size = 32
+collision_enabled = true
+collision_layer = 1
+collision_mask = 1
+shader_type = "Classic4Lite"
+custom_shader = null
+custom_globalmap_shader = null
+texture_set = SubResource( 1 )
+shader_params/u_ground_uv_scale = 20
+shader_params/u_depth_blending = true
+shader_params/u_triplanar = false
+shader_params/u_tile_reduction = Plane( 0, 0, 0, 0 )
+
+[node name="Log2" parent="." instance=ExtResource( 1 )]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 33.1, 6.376, 17 )
+start_position = Vector3( 0, -6, 0 )
+end_position = Vector3( 0, 6, 0 )
+top_shape = ExtResource( 11 )
+
+[node name="Log" parent="." instance=ExtResource( 1 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 19, 6.5, 17 )
+start_position = Vector3( 0, -6, 0 )
+end_position = Vector3( 0, 6, 0 )
+top_shape = ExtResource( 11 )
+
+[node name="Log3" parent="." instance=ExtResource( 1 )]
+transform = Transform( -4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 26.05, 12.915, 17 )
+start_position = Vector3( 0, -6, 0 )
+end_position = Vector3( 0, 6, 0 )
+top_shape = ExtResource( 11 )
+bottom_shape = ExtResource( 11 )
+
+[node name="Log4" parent="." instance=ExtResource( 1 )]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 33.096, 6.376, 31.512 )
+start_position = Vector3( 0, -6, 0 )
+end_position = Vector3( 0, 6, 0 )
+top_shape = ExtResource( 11 )
+
+[node name="Log5" parent="." instance=ExtResource( 1 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 18.996, 6.5, 31.512 )
+start_position = Vector3( 0, -6, 0 )
+end_position = Vector3( 0, 6, 0 )
+top_shape = ExtResource( 11 )
+
+[node name="Log6" parent="." instance=ExtResource( 1 )]
+transform = Transform( -4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 26.046, 12.915, 31.512 )
+start_position = Vector3( 0, -6, 0 )
+end_position = Vector3( 0, 6, 0 )
+top_shape = ExtResource( 11 )
+bottom_shape = ExtResource( 11 )
+
+[node name="Log7" parent="." instance=ExtResource( 1 )]
+transform = Transform( -1, -8.74228e-08, 3.82137e-15, 0, -4.37114e-08, -1, 8.74228e-08, -1, 4.37114e-08, 25.9454, 15.6494, 24.1959 )
+start_position = Vector3( 0, -6, 0 )
+end_position = Vector3( 0, 6, 0 )
+top_shape = ExtResource( 11 )
+bottom_shape = ExtResource( 11 )
+
+[node name="Log8" parent="." instance=ExtResource( 1 )]
+transform = Transform( -1, -8.74228e-08, 3.82137e-15, 0, -4.37114e-08, -1, 8.74228e-08, -1, 4.37114e-08, 19.6114, 15.6494, 24.1959 )
+start_position = Vector3( 0, -6, 0 )
+end_position = Vector3( 0, 6, 0 )
+top_shape = ExtResource( 11 )
+bottom_shape = ExtResource( 11 )
+
+[node name="Log9" parent="." instance=ExtResource( 1 )]
+transform = Transform( -1, -8.74228e-08, 3.82137e-15, 0, -4.37114e-08, -1, 8.74228e-08, -1, 4.37114e-08, 22.8664, 15.6494, 24.1959 )
+start_position = Vector3( 0, -6, 0 )
+end_position = Vector3( 0, 6, 0 )
+top_shape = ExtResource( 11 )
+bottom_shape = ExtResource( 11 )
+
+[node name="Log10" parent="." instance=ExtResource( 1 )]
+transform = Transform( -1, -8.74228e-08, 3.82137e-15, -5.15055e-08, 0.589154, -0.808021, 7.06394e-08, -0.808021, -0.589154, 30.7697, 37.1541, 20.4375 )
+start_position = Vector3( 0, -10, 0 )
+end_position = Vector3( 0, 10, 0 )
+top_shape = ExtResource( 11 )

@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://interface/UI.gd" type="Script" id=2]
+
+[node name="UI" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AgeOrHumidfy" type="Button" parent="."]
+margin_left = 57.0
+margin_top = 509.0
+margin_right = 232.0
+margin_bottom = 565.0
+text = "Age / Humidify"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="AgeOrHumidfy" to="." method="_on_AgeOrHumidfy_pressed"]

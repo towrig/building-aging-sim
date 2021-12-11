@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/materials/Log.tres" type="Material" id=1]
+
+[sub_resource type="CylinderMesh" id=2]
+
+[node name="Bottom-slice" type="MeshInstance"]
+transform = Transform( 0.95, 0, 0, 1.86265e-09, 0.1, 0, 0, 0, 0.95, 0, -3.9, 0 )
+mesh = SubResource( 2 )
+material/0 = ExtResource( 1 )
