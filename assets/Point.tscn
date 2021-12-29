@@ -1,4 +1,6 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/Point.gd" type="Script" id=1]
 
 [sub_resource type="SphereMesh" id=1]
 
@@ -9,3 +11,4 @@ albedo_color = Color( 1, 0, 0, 1 )
 transform = Transform( 0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0 )
 mesh = SubResource( 1 )
 material/0 = SubResource( 2 )
+script = ExtResource( 1 )

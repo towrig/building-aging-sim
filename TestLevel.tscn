@@ -55,6 +55,7 @@ transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 33.1, 6
 start_position = Vector3( 0, -6, 0 )
 end_position = Vector3( 0, 6, 0 )
 top_shape = ExtResource( 11 )
+show_debug = true
 
 [node name="Log" parent="." instance=ExtResource( 1 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 19, 6.5, 17 )
@@ -96,7 +97,7 @@ top_shape = ExtResource( 11 )
 bottom_shape = ExtResource( 11 )
 
 [node name="Log8" parent="." instance=ExtResource( 1 )]
-transform = Transform( -1, -8.74228e-08, 3.82137e-15, 0, -4.37114e-08, -1, 8.74228e-08, -1, 4.37114e-08, 19.6114, 15.6494, 24.1959 )
+transform = Transform( -1, -1.50996e-07, 6.60024e-15, 0, -4.37114e-08, -1, 1.50996e-07, -1, 4.37114e-08, 19.6114, 15.6494, 24.1959 )
 start_position = Vector3( 0, -6, 0 )
 end_position = Vector3( 0, 6, 0 )
 top_shape = ExtResource( 11 )

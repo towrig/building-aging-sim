@@ -2,6 +2,8 @@ tool
 extends RigidBody
 
 var aging = false
+var aging_rate = 0.1
+var _counter = 0
 var rendered = false
 export var density = 600 #in kg/m3
 export(Vector3) var start_position = Vector3(0.0, -2.0, 0.0) setget set_start_pos
@@ -15,6 +17,7 @@ var top_shape_copy
 export(Mesh) var bottom_shape setget set_bottom_shape
 var bottom_shape_copy
 
+export(bool) var show_debug = false;
 var debug_point = preload("res://assets/Point.tscn")
 
 var nodeList = []
@@ -24,6 +27,13 @@ class DataNode extends Reference:
 	var position = Vector3(0.0,0.0,0.0)
 	var stress = 0.0
 	var rot = 0.0
+
+# Example of ducktyping
+func duckExmpl(node):
+	#if has method -> call method
+	if node.has_method("walk"):
+		node.call("walk")
+		node.call_deferred("walk") #called when everything else is already updated
 
 func set_start_pos(new_pos):
 	start_position = new_pos
@@ -72,14 +82,12 @@ func create_end_joint(pos, rotation_y, isTop, scale_vec, mesh):
 		core_mesh.rotate_y(PI)
 	self.add_child(core_mesh)
 
-
 func genTree(list):
 	var t_scale = Vector3(1.0, 1.0, 1.0);
 	create_end_joint(start_position, 0.0, false, t_scale, bottom_shape)
 	for node in list:
 		self.add_child(create_joint(node.position, 0.0, t_scale, piece_mesh))
 	create_end_joint(end_position, 0.0, true, t_scale, top_shape)
-
 
 func getCollisionDisk(mesh, point, offset, boundary):
 	var returnable = []
@@ -101,6 +109,10 @@ func getCollisionDisk(mesh, point, offset, boundary):
 	return returnable
 	
 func showPoints(vectors):
+	var existing = get_tree().get_nodes_in_group("debug_points");
+	for node in existing:
+		node.queue_free()
+	
 	for vec in vectors:
 		var point = debug_point.instance()
 		point.scale = Vector3(0.1, 0.1, 0.1)
@@ -113,7 +125,6 @@ func createEndHitbox(shape, pos, offset):
 	var hitbox_points = []
 	hitbox_points += getCollisionDisk(shape, pos, offset, 1)
 	hitbox_points += getCollisionDisk(shape, pos, 0, 1)
-	showPoints(hitbox_points)
 	hitbox_shape.set_points(hitbox_points)
 	hitbox.shape = hitbox_shape
 	self.add_child(hitbox)
@@ -132,7 +143,6 @@ func createHitbox():
 	if bottom_shape:
 		createEndHitbox(bottom_shape, start_position, -1)
 	
-	showPoints(hitbox_points)
 	hitbox_shape.set_points(hitbox_points)
 	hitbox.shape = hitbox_shape
 	self.add_child(hitbox)
@@ -171,7 +181,27 @@ func assembleTree():
 	rendered = true
 
 func on_aging_start(rate):
-	print("RECIEVED RATE:"+str(rate))
+	aging = true
+	aging_rate = rate
+
+func handleHumidity(node):
+	# use translation for world position of node
+	# based on if touching ground, start increasing humidity from there.
+	return node
+
+func age():
+	var start_pos = translation + nodeList[0].position
+	var top_pos = translation + nodeList[len(nodeList)-1].position
+	if show_debug:
+		print(start_pos.y)
+		print(top_pos.y)
+		showPoints([nodeList[0].position, nodeList[len(nodeList)-1].position])
+		print("-----------------");
+	
+	var i = 0
+	while i < len(nodeList):
+		nodeList[i] = handleHumidity(nodeList[i])
+		i += 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -181,6 +211,10 @@ func _ready():
 	#button.connect("start_aging", self, "on_aging_start")
 
 func _process(delta):
+	_counter += aging_rate * delta
+	if aging && (1 < _counter) :
+		age()
+		_counter = 0
 	if Engine.editor_hint and not rendered:
 		assembleTree()
 
