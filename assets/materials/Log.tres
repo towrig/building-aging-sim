@@ -9,6 +9,7 @@ render_mode specular_schlick_ggx;
 
 uniform sampler2D color_texture;
 uniform sampler2D normal_map;
+
 uniform float scale = 2.0;
 uniform float depth_intensity = 1.3;
 uniform float roughness = 1.0;
