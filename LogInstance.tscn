@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://assets/materials/Bark.tres" type="Material" id=1]
+[ext_resource path="res://assets/materials/Log_proc.tres" type="Material" id=1]
 [ext_resource path="res://assets/materials/Log.tres" type="Material" id=2]
 [ext_resource path="res://LogInstance.gd" type="Script" id=3]
-[ext_resource path="res://assets/materials/Bark_Rotten.tres" type="Material" id=4]
 [ext_resource path="res://assets/log.obj" type="ArrayMesh" id=5]
 
 [node name="Log" type="RigidBody"]
@@ -11,5 +10,4 @@ mass = 600.0
 script = ExtResource( 3 )
 end_material = ExtResource( 2 )
 bark_material = ExtResource( 1 )
-rot_material = ExtResource( 4 )
 piece_mesh = ExtResource( 5 )

@@ -10,7 +10,6 @@ export(Vector3) var start_position = Vector3(0.0, -2.0, 0.0) setget set_start_po
 export(Vector3) var end_position = Vector3(0.0, 2.0, 0.0) setget set_end_pos
 export(Material) var end_material
 export(Material) var bark_material
-export(Material) var rot_material
 export(Mesh) var piece_mesh = load('res://assets/log.obj')
 export(Mesh) var top_shape setget set_top_shape
 var top_shape_copy
@@ -213,17 +212,35 @@ func calcRot(prev_rot, current_rot):
 	var operations_result = current_rot + 0.01
 	return clamp(operations_result, 0.0, 1.0)
 
+func getOrientation():
+	var orientation = transform.basis.y * start_position.y
+	return orientation.y
+
+#func _integrate_forces( state ):
+#   if(state.get_contact_count() >= 1): 
+#        local_collision_pos = state.get_contact_local_pos(0)
+
+#func getCollidingPoint(target):
+#	var target.translation
+
+func touchingGroundOrRot():
+	var touching = false
+	for x in get_colliding_bodies():
+		if x.has_method("get_constant_angular_velocity"):
+			touching = true
+		else:
+			if x.has_method("get_rot_at"):
+				print("haha")
+	if (show_debug):
+		print(touching)
+	return touching
+
 func handleHumidity():
 	# use translation for world position of node
 	# based on if touching ground, start increasing humidity from there.
 	var start_pos = translation + nodeList[0].position
 	var top_pos = translation + nodeList[len(nodeList)-1].position
 	var diff = start_pos.y - top_pos.y
-	
-	#if show_debug:
-	#	print("Start: "+ str(start_pos.y))
-	#	print("Top: "+ str(top_pos.y))
-	#	print("-----------------")
 	var prev_rot = 0.35
 	var i = 0
 	
@@ -231,8 +248,7 @@ func handleHumidity():
 		while i < len(nodeList):
 			var new_rot_value = calcRot(prev_rot, nodeList[i].rot)
 			nodeList[i].rot = new_rot_value
-			if show_debug:
-				nodeList[i].mesh.get_active_material(0).set_shader_param("humidity", new_rot_value)
+			nodeList[i].mesh.get_active_material(0).set_shader_param("humidity", new_rot_value)
 			prev_rot = new_rot_value
 			i += 1
 	elif diff > -0.1: #top is lower
@@ -240,28 +256,27 @@ func handleHumidity():
 		while i >= 0:
 			var new_rot_value = calcRot(prev_rot, nodeList[i].rot)
 			nodeList[i].rot = new_rot_value
-			if show_debug:
-				nodeList[i].mesh.get_active_material(0).set_shader_param("humidity", new_rot_value)
+			nodeList[i].mesh.get_active_material(0).set_shader_param("humidity", new_rot_value)
 			prev_rot = new_rot_value
 			i -= 1
 	else: # basically level
 		while i < len(nodeList):
 			var new_rot_value = calcRot(prev_rot, nodeList[i].rot)
 			nodeList[i].rot = new_rot_value
-			if show_debug:
-				nodeList[i].mesh.get_active_material(0).set_shader_param("humidity", new_rot_value)
+			nodeList[i].mesh.get_active_material(0).set_shader_param("humidity", new_rot_value)
 			prev_rot = new_rot_value
 			i += 1
 
 func age():
-	handleHumidity()
+	if (touchingGroundOrRot()):
+		handleHumidity()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	assembleTree()
+	set_contact_monitor(true)
+	set_max_contacts_reported(5)
 	Globals.connect("start_aging", self, "on_aging_start")
-	#var button = get_tree().get_root().find_node("AgeOrHumidify",true,false)
-	#button.connect("start_aging", self, "on_aging_start")
 
 func _process(delta):
 	_counter += aging_rate * delta
