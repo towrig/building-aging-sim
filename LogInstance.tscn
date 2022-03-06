@@ -6,8 +6,11 @@
 [ext_resource path="res://assets/log.obj" type="ArrayMesh" id=5]
 
 [node name="Log" type="RigidBody"]
-mass = 600.0
+mass = 1884.96
+contacts_reported = 12
+contact_monitor = true
 script = ExtResource( 3 )
+length = 0
 end_material = ExtResource( 2 )
 bark_material = ExtResource( 1 )
 piece_mesh = ExtResource( 5 )
