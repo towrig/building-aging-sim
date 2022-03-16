@@ -7,7 +7,6 @@
 
 [node name="Log" type="RigidBody"]
 mass = 1884.96
-contacts_reported = 12
 contact_monitor = true
 script = ExtResource( 3 )
 length = 0

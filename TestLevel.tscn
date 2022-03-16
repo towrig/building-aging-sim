@@ -53,6 +53,7 @@ shader_params/u_tile_reduction = Plane( 0, 0, 0, 0 )
 [node name="Log8" parent="." instance=ExtResource( 1 )]
 transform = Transform( -1, -8.74228e-08, 3.82137e-15, 0, -4.37114e-08, -1, 8.74227e-08, -1, 4.37114e-08, 30.2277, 14.8476, 22.9702 )
 mass = 2827.43
+contacts_reported = 12
 length = 6
 top_shape = ExtResource( 11 )
 bottom_shape = ExtResource( 11 )
@@ -60,12 +61,14 @@ bottom_shape = ExtResource( 11 )
 [node name="Log5" parent="." instance=ExtResource( 1 )]
 transform = Transform( -0.0777784, 0.0145096, 0.996865, -0.0188177, 0.999694, -0.016019, -0.996793, -0.0200047, -0.0774816, 22.0775, 6.52212, 29.1975 )
 mass = 2827.43
+contacts_reported = 12
 length = 6
 top_shape = ExtResource( 11 )
 
 [node name="Log6" parent="." instance=ExtResource( 1 )]
 transform = Transform( -4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 28.2156, 11.5329, 29.0957 )
 mass = 2827.43
+contacts_reported = 12
 length = 6
 top_shape = ExtResource( 11 )
 bottom_shape = ExtResource( 11 )
@@ -73,18 +76,21 @@ bottom_shape = ExtResource( 11 )
 [node name="Log7" parent="." instance=ExtResource( 1 )]
 transform = Transform( 0.0777784, 0.0145096, -0.996865, 0.0188177, 0.999694, 0.016019, 0.996793, -0.0200047, 0.0774816, 34.2774, 6.42592, 29.2015 )
 mass = 2827.43
+contacts_reported = 12
 length = 6
 top_shape = ExtResource( 11 )
 
 [node name="Log2" parent="." instance=ExtResource( 1 )]
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 33.9801, 6.20171, 16.944 )
 mass = 2827.43
+contacts_reported = 12
 length = 6
 top_shape = ExtResource( 11 )
 
 [node name="Log4" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1.31134e-07, 1, -3.82137e-15, -4.37114e-08, 1.91069e-15, -1, -1, 1.31134e-07, 4.37114e-08, 27.9293, 11.4933, 16.9438 )
 mass = 2827.43
+contacts_reported = 12
 length = 6
 top_shape = ExtResource( 11 )
 bottom_shape = ExtResource( 11 )
@@ -93,5 +99,6 @@ show_debug = true
 [node name="Log3" parent="." instance=ExtResource( 1 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 21.8331, 6.29972, 17 )
 mass = 2827.43
+contacts_reported = 12
 length = 6
 top_shape = ExtResource( 11 )
