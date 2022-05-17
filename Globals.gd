@@ -1,13 +1,20 @@
 extends Node
 
-signal start_aging(rate)
+signal toggle_aging(rate, value)
+signal toggle_structure(value)
+signal break_happened(object_id)
+signal set_debug(value)
 
+var tickrate = 1.0
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+func stop_physics():
+	var scene_root = get_tree().root.get_child(1)
+	for child in scene_root.get_children():
+		if child.has_method("should_break"): # is loginstance
+			child.set_mode(1) #0 = rigidbody, 1 = static
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func start_physics():
+	var scene_root = get_tree().root.get_child(1)
+	for child in scene_root.get_children():
+		if child.has_method("should_break"):
+			child.set_mode(0)

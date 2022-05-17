@@ -1,8 +1,8 @@
 {
 	"contains_albedo": true,
-	"resolution": 1024,
+	"resolution": 4096,
 	"src": {
-		"a": "res://assets/textures/terrain/grass/Grass001_1K_Displacement.jpg",
-		"rgb": "res://assets/textures/terrain/grass/Grass001_1K_Color.jpg"
+		"a": "res://assets/textures/terrain/ph_grass_4k/forest_leaves_02_disp_4k.png",
+		"rgb": "res://assets/textures/terrain/ph_grass_4k/forest_leaves_02_diffuse_4k.jpg"
 	}
 }

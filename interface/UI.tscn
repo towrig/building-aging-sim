@@ -18,7 +18,7 @@ margin_left = 57.0
 margin_top = 509.0
 margin_right = 232.0
 margin_bottom = 565.0
-text = "Age / Humidify"
+text = "Start aging"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -30,7 +30,8 @@ position = Vector2( 247.914, 550.921 )
 margin_left = 74.1624
 margin_right = 574.162
 margin_bottom = 16.0
-max_value = 20.0
+max_value = 1000.0
+step = 10.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -58,10 +59,53 @@ __meta__ = {
 }
 
 [node name="YearsValue" type="Label" parent="AgeInfo"]
-margin_left = 353.0
+margin_left = 351.0
 margin_top = 530.0
-margin_right = 393.0
+margin_right = 391.0
 margin_bottom = 545.0
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ToggleStructureView" type="Node2D" parent="."]
+
+[node name="CheckBox" type="CheckBox" parent="ToggleStructureView"]
+margin_left = 980.444
+margin_top = 538.206
+margin_right = 1004.44
+margin_bottom = 562.206
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="ToggleStructureView"]
+margin_left = 887.192
+margin_top = 543.0
+margin_right = 986.192
+margin_bottom = 557.0
+text = "Structure view: "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AgeCurrent" type="Node2D" parent="."]
+
+[node name="Label" type="Label" parent="AgeCurrent"]
+margin_left = 260.0
+margin_top = 509.0
+margin_right = 377.0
+margin_bottom = 523.0
+text = "Showing currently: "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="YearsValue" type="Label" parent="AgeCurrent"]
+margin_left = 381.0
+margin_top = 509.0
+margin_right = 421.0
+margin_bottom = 524.0
 text = "0"
 __meta__ = {
 "_edit_use_anchors_": false

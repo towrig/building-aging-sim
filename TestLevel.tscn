@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://LogInstance.tscn" type="PackedScene" id=1]
 [ext_resource path="res://TestLevel_slot0_albedo_bump.packed_tex" type="Texture" id=2]
@@ -11,30 +11,56 @@
 [ext_resource path="res://TestLevel_slot1_normal_roughness.packed_tex" type="Texture" id=9]
 [ext_resource path="res://interface/UI.tscn" type="PackedScene" id=10]
 [ext_resource path="res://assets/log_half.obj" type="ArrayMesh" id=11]
+[ext_resource path="res://DegradeableBlock.tscn" type="PackedScene" id=12]
+[ext_resource path="res://String.gd" type="Script" id=13]
+[ext_resource path="res://String.tscn" type="PackedScene" id=14]
+[ext_resource path="res://ThatchInstance.tscn" type="PackedScene" id=15]
+[ext_resource path="res://assets/textures/archeology_plan.jpg" type="Texture" id=16]
+[ext_resource path="res://TestLevel_slot2_normal_roughness.packed_tex" type="Texture" id=17]
+[ext_resource path="res://TestLevel_slot2_albedo_bump.packed_tex" type="Texture" id=18]
 
 [sub_resource type="Resource" id=1]
 script = ExtResource( 5 )
 mode = 0
-textures = [ [ ExtResource( 2 ), ExtResource( 7 ) ], [ ExtResource( 8 ), ExtResource( 9 ) ] ]
+textures = [ [ ExtResource( 2 ), ExtResource( 7 ), ExtResource( 18 ) ], [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 17 ) ] ]
+
+[sub_resource type="SpatialMaterial" id=2]
+albedo_texture = ExtResource( 16 )
+
+[sub_resource type="PlaneMesh" id=3]
+size = Vector2( 56, 56 )
 
 [node name="Spatial" type="Spatial"]
 
 [node name="UI" parent="." instance=ExtResource( 10 )]
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
-transform = Transform( -4.37114e-08, -0.5, 0.866025, 0, 0.866025, 0.5, -1, 2.18557e-08, -3.78552e-08, 36.6309, 32.4798, -0.003 )
-light_color = Color( 0.996078, 0.988235, 0.819608, 1 )
-light_energy = 1.56
+transform = Transform( -4.37114e-08, -0.5, 0.866025, 0, 0.866025, 0.5, -1, 2.18557e-08, -3.78552e-08, 61.3035, 39.5741, -0.003 )
+light_color = Color( 1, 0.980392, 0.513726, 1 )
+light_energy = 1.4
+light_specular = 0.42
+shadow_enabled = true
+
+[node name="OmniLight" type="OmniLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 56.0931, 1.75105, 66.3871 )
+visible = false
+light_color = Color( 0.956863, 0.654902, 0.231373, 1 )
+light_energy = 1.64
+light_specular = 0.87
+omni_range = 14.0
 
 [node name="Floor" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 47.8816, -0.974917, 51.9096 )
 visible = false
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( -1, 4.37114e-08, -7.57103e-08, 0, 0.866025, 0.5, 8.74228e-08, 0.5, -0.866025, 26.8442, 15.5208, 3.98941 )
+transform = Transform( -0.99745, 0.0123942, -0.0702912, 0, 0.984808, 0.173648, 0.0713755, 0.173205, -0.982296, 51.587, 13.897, 19.258 )
 keep_aspect = 0
 fov = 90.0
+far = 300.0
 
 [node name="HTerrain" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -100, 0, 0 )
 script = ExtResource( 6 )
 _terrain_data = ExtResource( 4 )
 chunk_size = 32
@@ -50,55 +76,1922 @@ shader_params/u_depth_blending = true
 shader_params/u_triplanar = false
 shader_params/u_tile_reduction = Plane( 0, 0, 0, 0 )
 
-[node name="Log8" parent="." instance=ExtResource( 1 )]
-transform = Transform( -1, -8.74228e-08, 3.82137e-15, 0, -4.37114e-08, -1, 8.74227e-08, -1, 4.37114e-08, 30.2277, 14.8476, 22.9702 )
-mass = 2827.43
-contacts_reported = 12
-length = 6
-top_shape = ExtResource( 11 )
-bottom_shape = ExtResource( 11 )
+[node name="BUILDING_PLAN" type="MeshInstance" parent="."]
+transform = Transform( -0.990861, 0, 0.134885, 0, 1, 0, -0.134885, 0, -0.990861, 51.7169, 0.306353, 65.4488 )
+visible = false
+material_override = SubResource( 2 )
+mesh = SubResource( 3 )
+material/0 = null
 
-[node name="Log5" parent="." instance=ExtResource( 1 )]
-transform = Transform( -0.0777784, 0.0145096, 0.996865, -0.0188177, 0.999694, -0.016019, -0.996793, -0.0200047, -0.0774816, 22.0775, 6.52212, 29.1975 )
-mass = 2827.43
+[node name="MEASURE_REF" parent="." instance=ExtResource( 1 )]
+transform = Transform( -4.33613e-08, -0.991989, -0.12632, 1, -4.37114e-08, 0, -5.52163e-09, -0.12632, 0.99199, 38.6561, 1.19103, 90.3763 )
+mass = 15.2681
+contacts_reported = 32
+radius = 0.03
+length = 8
+
+[node name="Log14" parent="." instance=ExtResource( 1 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 64.6308, 2.84576, 49.6064 )
+mass = 63.6173
 contacts_reported = 12
-length = 6
+radius = 0.1
+length = 3
+
+[node name="Log35" parent="." instance=ExtResource( 1 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 67.4348, 2.84576, 51.413 )
+mass = 63.6173
+contacts_reported = 12
+radius = 0.1
+length = 3
+
+[node name="Log38" parent="." instance=ExtResource( 1 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 70.981, 2.84576, 54.9558 )
+mass = 63.6173
+contacts_reported = 12
+radius = 0.1
+length = 3
+
+[node name="Log10" parent="." instance=ExtResource( 1 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 61.9532, 2.84576, 48.0997 )
+mass = 63.6173
+contacts_reported = 12
+radius = 0.1
+length = 3
+
+[node name="Log11" parent="." instance=ExtResource( 1 )]
+transform = Transform( -4.37108e-08, 0.00535814, -0.999986, 2.34212e-10, 0.999986, 0.00535814, 1, 0, -4.37114e-08, 58.762, 2.94115, 46.5425 )
+mass = 339.292
+contacts_reported = 16
+radius = 0.2
+length = 4
 top_shape = ExtResource( 11 )
 
-[node name="Log6" parent="." instance=ExtResource( 1 )]
-transform = Transform( -4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 28.2156, 11.5329, 29.0957 )
-mass = 2827.43
-contacts_reported = 12
-length = 6
+[node name="Log12" parent="." instance=ExtResource( 1 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 49.7225, 2.91518, 47.1077 )
+mass = 339.292
+contacts_reported = 16
+radius = 0.2
+length = 4
 top_shape = ExtResource( 11 )
-bottom_shape = ExtResource( 11 )
-
-[node name="Log7" parent="." instance=ExtResource( 1 )]
-transform = Transform( 0.0777784, 0.0145096, -0.996865, 0.0188177, 0.999694, 0.016019, 0.996793, -0.0200047, 0.0774816, 34.2774, 6.42592, 29.2015 )
-mass = 2827.43
-contacts_reported = 12
-length = 6
-top_shape = ExtResource( 11 )
-
-[node name="Log2" parent="." instance=ExtResource( 1 )]
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 33.9801, 6.20171, 16.944 )
-mass = 2827.43
-contacts_reported = 12
-length = 6
-top_shape = ExtResource( 11 )
-
-[node name="Log4" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1.31134e-07, 1, -3.82137e-15, -4.37114e-08, 1.91069e-15, -1, -1, 1.31134e-07, 4.37114e-08, 27.9293, 11.4933, 16.9438 )
-mass = 2827.43
-contacts_reported = 12
-length = 6
-top_shape = ExtResource( 11 )
-bottom_shape = ExtResource( 11 )
 show_debug = true
 
-[node name="Log3" parent="." instance=ExtResource( 1 )]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 21.8331, 6.29972, 17 )
-mass = 2827.43
-contacts_reported = 12
-length = 6
+[node name="Log13" parent="." instance=ExtResource( 1 )]
+transform = Transform( -0.0547758, 0.998499, 2.39433e-09, -4.37114e-08, 1.91069e-15, -1, -0.998499, -0.0547758, 4.36458e-08, 54.3122, 6.91, 46.8403 )
+mass = 424.115
+contacts_reported = 20
+radius = 0.2
+length = 5
 top_shape = ExtResource( 11 )
+bottom_shape = ExtResource( 11 )
+
+[node name="Log15" parent="." instance=ExtResource( 1 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 47.3714, 2.84576, 48.4356 )
+mass = 254.469
+contacts_reported = 12
+radius = 0.2
+length = 3
+
+[node name="Log16" parent="." instance=ExtResource( 1 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 44.7726, 2.84576, 50.269 )
+mass = 143.139
+contacts_reported = 12
+radius = 0.15
+length = 3
+
+[node name="Log17" parent="." instance=ExtResource( 1 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 41.6499, 2.84576, 55.1453 )
+mass = 143.139
+contacts_reported = 12
+radius = 0.15
+length = 3
+
+[node name="Log18" parent="." instance=ExtResource( 1 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 39.6586, 2.84576, 60.1491 )
+mass = 63.6173
+contacts_reported = 12
+radius = 0.1
+length = 3
+
+[node name="Log19" parent="." instance=ExtResource( 1 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 39.0248, 2.84576, 65.1229 )
+mass = 63.6173
+contacts_reported = 12
+radius = 0.1
+length = 3
+
+[node name="Log20" parent="." instance=ExtResource( 1 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 38.532, 2.93634, 68.3344 )
+mass = 63.6173
+contacts_reported = 12
+radius = 0.1
+length = 3
+
+[node name="Log21" parent="." instance=ExtResource( 1 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 39.5939, 2.84576, 74.5684 )
+mass = 63.6173
+contacts_reported = 12
+radius = 0.1
+length = 3
+
+[node name="Log22" parent="." instance=ExtResource( 1 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 57.7788, 2.84576, 86.567 )
+mass = 40.715
+contacts_reported = 12
+radius = 0.08
+length = 3
+
+[node name="Log23" parent="." instance=ExtResource( 1 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 65.3131, 2.84576, 84.7169 )
+mass = 63.6173
+contacts_reported = 12
+radius = 0.1
+section_length = 0.08
+length = 3
+
+[node name="Log24" parent="." instance=ExtResource( 1 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 69.3637, 2.84576, 82.4039 )
+mass = 40.715
+contacts_reported = 12
+radius = 0.08
+length = 3
+
+[node name="Log25" parent="." instance=ExtResource( 1 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 72.7568, 2.84576, 78.2374 )
+mass = 40.715
+contacts_reported = 12
+radius = 0.08
+length = 3
+
+[node name="Log26" parent="." instance=ExtResource( 1 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 75.091, 2.84576, 73.0511 )
+mass = 40.715
+contacts_reported = 12
+radius = 0.08
+length = 3
+
+[node name="Log27" parent="." instance=ExtResource( 1 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 75.4732, 2.84576, 67.931 )
+mass = 40.715
+contacts_reported = 12
+radius = 0.08
+length = 3
+
+[node name="Log39" parent="." instance=ExtResource( 1 )]
+transform = Transform( -0.999775, 0, -0.0212042, 0, 1, 0, 0.0212042, 0, -0.999775, 41.8889, 2.84576, 78.9804 )
+mass = 63.6173
+contacts_reported = 12
+radius = 0.1
+length = 3
+
+[node name="Log28" parent="." instance=ExtResource( 1 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 74.6939, 2.84576, 62.5483 )
+mass = 40.715
+contacts_reported = 12
+radius = 0.08
+length = 3
+
+[node name="Log40" parent="." instance=ExtResource( 1 )]
+transform = Transform( -0.999775, 0, -0.0212042, 0, 1, 0, 0.0212042, 0, -0.999775, 44.645, 3.01881, 82.1207 )
+mass = 63.6173
+contacts_reported = 12
+radius = 0.1
+length = 3
+
+[node name="Log42" parent="." instance=ExtResource( 1 )]
+transform = Transform( -0.999775, 0, -0.0212042, 0, 1, 0, 0.0212042, 0, -0.999775, 48.8558, 2.97557, 85.3547 )
+mass = 63.6173
+contacts_reported = 12
+radius = 0.1
+length = 3
+
+[node name="Log44" parent="." instance=ExtResource( 1 )]
+transform = Transform( -0.999775, 0, -0.0212042, 0, 1, 0, 0.0212042, 0, -0.999775, 53.3501, 3.00204, 86.4724 )
+mass = 63.6173
+contacts_reported = 12
+radius = 0.1
+length = 3
+
+[node name="Log41" parent="." instance=ExtResource( 1 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 73.5113, 2.84576, 59.3627 )
+mass = 63.6173
+contacts_reported = 12
+radius = 0.1
+length = 3
+
+[node name="DegradeableBlock" parent="." instance=ExtResource( 12 )]
+transform = Transform( 0.886478, 0, 0.46277, 0, 1, 0, -0.46277, 0, 0.886478, 48.5723, 2.72614, 47.8172 )
+scale_meters = Vector3( 0.159, 0.7, 0.1 )
+
+[node name="DegradeableBlock2" parent="." instance=ExtResource( 12 )]
+transform = Transform( 0.795844, 0, 0.605502, 0, 1, 0, -0.605502, 0, 0.795844, 45.9657, 2.62302, 49.3847 )
+scale_meters = Vector3( 0.231, 0.65, 0.1 )
+
+[node name="DegradeableBlock3" parent="." instance=ExtResource( 12 )]
+transform = Transform( 0.526155, 0, 0.850389, 0, 1, 0, -0.850389, 0, 0.526155, 43.1831, 3.03386, 52.6794 )
+scale_meters = Vector3( 0.6, 0.75, 0.1 )
+
+[node name="DegradeableBlock4" parent="." instance=ExtResource( 12 )]
+transform = Transform( 0.362536, 0, 0.93197, 0, 1, 0, -0.93197, 0, 0.362536, 40.6218, 2.97621, 57.6788 )
+scale_meters = Vector3( 0.6, 0.75, 0.1 )
+
+[node name="DegradeableBlock5" parent="." instance=ExtResource( 12 )]
+transform = Transform( 0.129938, 0, 0.991522, 0, 1, 0, -0.991522, 0, 0.129938, 39.3236, 3.04744, 62.731 )
+scale_meters = Vector3( 0.55, 0.75, 0.08 )
+
+[node name="DegradeableBlock6" parent="." instance=ExtResource( 12 )]
+transform = Transform( 0.129955, 0, 0.99152, 0, 1, 0, -0.99152, 0, 0.129955, 38.8283, 3.04744, 66.7623 )
+scale_meters = Vector3( 0.32, 0.75, 0.08 )
+
+[node name="DegradeableBlock7" parent="." instance=ExtResource( 12 )]
+transform = Transform( -0.161621, 0, 0.986853, 0, 1, 0, -0.986853, 0, -0.161621, 39.0023, 3.04744, 71.4798 )
+scale_meters = Vector3( 0.7, 0.75, 0.08 )
+
+[node name="DegradeableBlock8" parent="." instance=ExtResource( 12 )]
+transform = Transform( -0.447884, 0, 0.894092, 0, 1, 0, -0.894092, 0, -0.447884, 40.722, 3.04744, 76.8205 )
+scale_meters = Vector3( 0.55, 0.75, 0.08 )
+
+[node name="DegradeableBlock9" parent="." instance=ExtResource( 12 )]
+transform = Transform( -0.676452, 0, 0.736487, 0, 1, 0, -0.736487, 0, -0.676452, 43.2343, 3.04744, 80.5471 )
+scale_meters = Vector3( 0.45, 0.75, 0.08 )
+
+[node name="DegradeableBlock10" parent="." instance=ExtResource( 12 )]
+transform = Transform( -0.790069, 0, 0.613017, 0, 1, 0, -0.613017, 0, -0.790069, 46.7846, 3.04744, 83.6924 )
+scale_meters = Vector3( 0.6, 0.75, 0.08 )
+
+[node name="DegradeableBlock11" parent="." instance=ExtResource( 12 )]
+transform = Transform( -0.971561, 0, 0.236787, 0, 1, 0, -0.236787, 0, -0.971561, 51.1214, 2.61446, 85.9247 )
+scale_meters = Vector3( 0.5, 0.65, 0.08 )
+
+[node name="DegradeableBlock12" parent="." instance=ExtResource( 12 )]
+transform = Transform( -0.999846, 0, 0.0175572, 0, 1, 0, -0.0175572, 0, -0.999846, 55.5745, 3.04744, 86.5593 )
+scale_meters = Vector3( 0.48, 0.75, 0.08 )
+
+[node name="DegradeableBlock13" parent="." instance=ExtResource( 12 )]
+transform = Transform( -0.973307, 0, -0.229506, 0, 1, 0, 0.229506, 0, -0.973307, 61.4569, 2.97621, 85.6711 )
+scale_meters = Vector3( 0.9, 0.75, 0.08 )
+
+[node name="DegradeableBlock14" parent="." instance=ExtResource( 12 )]
+transform = Transform( -0.871924, 0, -0.489641, 0, 1, 0, 0.489641, 0, -0.871924, 67.386, 2.97621, 83.5985 )
+scale_meters = Vector3( 0.52, 0.75, 0.08 )
+
+[node name="DegradeableBlock15" parent="." instance=ExtResource( 12 )]
+transform = Transform( -0.632327, 0, -0.774702, 0, 1, 0, 0.774702, 0, -0.632327, 71.0359, 2.97621, 80.3338 )
+scale_meters = Vector3( 0.62, 0.75, 0.08 )
+
+[node name="DegradeableBlock16" parent="." instance=ExtResource( 12 )]
+transform = Transform( -0.408649, 0, -0.912691, 0, 1, 0, 0.912691, 0, -0.408649, 73.9541, 2.9819, 75.6415 )
+scale_meters = Vector3( 0.65, 0.75, 0.08 )
+
+[node name="DegradeableBlock17" parent="." instance=ExtResource( 12 )]
+transform = Transform( -0.0818344, 0, -0.996646, 0, 1, 0, 0.996646, 0, -0.0818344, 75.3513, 2.9819, 70.4921 )
+scale_meters = Vector3( 0.58, 0.75, 0.08 )
+
+[node name="DegradeableBlock18" parent="." instance=ExtResource( 12 )]
+transform = Transform( 0.150225, 0, -0.988652, 0, 1, 0, 0.988652, 0, 0.150225, 75.1777, 2.9819, 65.1925 )
+scale_meters = Vector3( 0.62, 0.75, 0.08 )
+
+[node name="DegradeableBlock19" parent="." instance=ExtResource( 12 )]
+transform = Transform( 0.355172, 0, -0.934801, 0, 1, 0, 0.934801, 0, 0.355172, 74.1837, 2.9819, 60.9821 )
+scale_meters = Vector3( 0.35, 0.75, 0.08 )
+
+[node name="DegradeableBlock20" parent="." instance=ExtResource( 12 )]
+transform = Transform( 0.477297, 0, -0.878742, 0, 1, 0, 0.878742, 0, 0.477297, 72.3485, 2.9819, 57.1116 )
+scale_meters = Vector3( 0.55, 0.75, 0.08 )
+
+[node name="DegradeableBlock21" parent="." instance=ExtResource( 12 )]
+transform = Transform( 0.706823, 0, -0.707391, 0, 1, 0, 0.707391, 0, 0.706823, 69.2117, 2.9819, 53.1478 )
+scale_meters = Vector3( 0.55, 0.75, 0.08 )
+
+[node name="DegradeableBlock22" parent="." instance=ExtResource( 12 )]
+transform = Transform( 0.828783, 0, -0.559569, 0, 1, 0, 0.559569, 0, 0.828783, 66.0641, 2.9819, 50.4641 )
+scale_meters = Vector3( 0.34, 0.75, 0.08 )
+
+[node name="DegradeableBlock23" parent="." instance=ExtResource( 12 )]
+transform = Transform( 0.859326, 0, -0.511428, 0, 1, 0, 0.511428, 0, 0.859326, 63.3353, 2.84706, 48.7811 )
+scale_meters = Vector3( 0.3, 0.7, 0.08 )
+
+[node name="DegradeableBlock24" parent="." instance=ExtResource( 12 )]
+transform = Transform( 0.875919, 0, -0.482457, 0, 1, 0, 0.482457, 0, 0.875919, 60.5378, 2.62164, 47.2799 )
+scale_meters = Vector3( 0.34, 0.65, 0.08 )
+
+[node name="CenterSupport" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 0.999999, 0, 0, 0, 1, 60.3253, 7.2511, 56.595 )
+mass = 42.4115
+contacts_reported = 32
+radius = 0.05
+length = 8
+
+[node name="String" parent="CenterSupport" instance=ExtResource( 14 )]
+transform = Transform( -0.563671, -7.91624e-09, -0.826002, 0.57379, 0.719342, -0.391559, 0.594174, -0.694658, -0.405471, 0.216488, 6.72166, 0.0233421 )
+nodes/node_a = NodePath("..")
+nodes/node_b = NodePath("../../RoofSupport8")
+script = ExtResource( 13 )
+
+[node name="CenterSupport2" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 0.999999, 0, 0, 0, 1, 66.484, 7.24565, 62.0589 )
+mass = 42.4115
+contacts_reported = 32
+radius = 0.05
+length = 8
+
+[node name="String" parent="CenterSupport2" instance=ExtResource( 14 )]
+transform = Transform( -0.563671, -7.91624e-09, -0.826002, 0.573791, 0.719343, -0.39156, 0.594174, -0.694658, -0.405472, -0.152695, 6.27847, -0.153339 )
+nodes/node_a = NodePath("..")
+nodes/node_b = NodePath("../../RoofSupport7")
+script = ExtResource( 13 )
+
+[node name="CenterSupport3" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 0.999999, 0, 0, 0, 1, 66.484, 7.24565, 70.3508 )
+mass = 42.4115
+contacts_reported = 32
+radius = 0.05
+length = 8
+
+[node name="String" parent="CenterSupport3" instance=ExtResource( 14 )]
+transform = Transform( -0.563671, -7.91624e-09, -0.826002, 0.573791, 0.719342, -0.39156, 0.594174, -0.694658, -0.405471, -0.045311, 7.65308, -0.222496 )
+nodes/node_a = NodePath("..")
+nodes/node_b = NodePath("../../RoofSupport6")
+script = ExtResource( 13 )
+
+[node name="CenterSupport4" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 0.999999, 0, 0, 0, 1, 61.1076, 7.24565, 75.7987 )
+mass = 42.4115
+contacts_reported = 32
+radius = 0.05
+length = 8
+
+[node name="String" parent="CenterSupport4" instance=ExtResource( 14 )]
+transform = Transform( -0.563671, -7.91624e-09, -0.826002, 0.573791, 0.719342, -0.39156, 0.594174, -0.694658, -0.405472, 0.262993, 8.01522, -0.0146103 )
+nodes/node_a = NodePath("..")
+nodes/node_b = NodePath("../../RoofSupport5")
+script = ExtResource( 13 )
+
+[node name="CenterSupport5" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 0.999999, 0, 0, 0, 1, 53.9621, 7.24565, 76.6812 )
+mass = 42.4115
+contacts_reported = 32
+radius = 0.05
+length = 8
+
+[node name="String" parent="CenterSupport5" instance=ExtResource( 14 )]
+transform = Transform( -0.563671, -7.91624e-09, -0.826003, 0.573792, 0.719343, -0.39156, 0.594174, -0.694658, -0.405472, -0.200821, 8.04384, -0.0146103 )
+nodes/node_a = NodePath("..")
+nodes/node_b = NodePath("../../RoofSupport4")
+script = ExtResource( 13 )
+
+[node name="CenterSupport6" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 0.999999, 0, 0, 0, 1, 48.4836, 7.24565, 73.0506 )
+mass = 42.4115
+contacts_reported = 32
+radius = 0.05
+length = 8
+
+[node name="String" parent="CenterSupport6" instance=ExtResource( 14 )]
+transform = Transform( -0.563671, -7.91624e-09, -0.826004, 0.573792, 0.719344, -0.39156, 0.594174, -0.694658, -0.405472, -0.190411, 7.72307, -0.304161 )
+nodes/node_a = NodePath("..")
+nodes/node_b = NodePath("../../RoofSupport2")
+script = ExtResource( 13 )
+
+[node name="CenterSupport7" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 0.999999, 0, 0, 0, 1, 46.7324, 7.24565, 64.6503 )
+mass = 42.4115
+contacts_reported = 32
+radius = 0.05
+length = 8
+
+[node name="String" parent="CenterSupport7" instance=ExtResource( 14 )]
+transform = Transform( -0.563671, -7.91624e-09, -0.826005, 0.573793, 0.719345, -0.391561, 0.594174, -0.694658, -0.405473, 0.0739937, 8.15156, 0.25592 )
+nodes/node_a = NodePath("..")
+nodes/node_b = NodePath("../../RoofSupport")
+script = ExtResource( 13 )
+
+[node name="CenterSupport8" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 0.999999, 0, 0, 0, 1, 50.373, 7.00323, 57.33 )
+mass = 42.4115
+contacts_reported = 32
+radius = 0.05
+length = 8
+
+[node name="String" parent="CenterSupport8" instance=ExtResource( 14 )]
+transform = Transform( -0.563671, -7.91624e-09, -0.826004, 0.573793, 0.719344, -0.39156, 0.594174, -0.694658, -0.405472, 0.2103, 7.33714, -0.0402107 )
+nodes/node_a = NodePath("..")
+nodes/node_b = NodePath("../../RoofSupport3")
+script = ExtResource( 13 )
+
+[node name="RoofSupport" parent="." instance=ExtResource( 1 )]
+transform = Transform( 0.193001, 0.693812, 0.693812, 0, 0.707106, -0.707107, -0.981198, 0.136473, 0.136473, 43.1708, 12.6089, 64.424 )
+mass = 95.4259
+contacts_reported = 72
+radius = 0.05
+length = 18
+
+[node name="String" parent="RoofSupport" instance=ExtResource( 14 )]
+transform = Transform( -0.563671, -7.68341e-09, -0.826, 0.573789, 0.71934, -0.391559, 0.594174, -0.694658, -0.40547, 0.0651207, 18.279, 0.0587654 )
+nodes/node_a = NodePath("..")
+nodes/node_b = NodePath("../../RoofSupport7")
+script = ExtResource( 13 )
+
+[node name="RoofSupport2" parent="." instance=ExtResource( 1 )]
+transform = Transform( -0.56367, 0.576891, 0.591162, 0, 0.715692, -0.698415, -0.826, -0.393676, -0.403415, 45.7647, 12.7166, 74.2267 )
+mass = 95.4259
+contacts_reported = 72
+radius = 0.05
+length = 18
+
+[node name="String" parent="RoofSupport2" instance=ExtResource( 14 )]
+transform = Transform( -0.563671, -7.91624e-09, -0.826, 0.573789, 0.71934, -0.391559, 0.594174, -0.694658, -0.40547, -0.0511551, 18.0599, 0.13575 )
+nodes/node_a = NodePath("..")
+nodes/node_b = NodePath("../../RoofSupport7")
+script = ExtResource( 13 )
+
+[node name="RoofSupport3" parent="." instance=ExtResource( 1 )]
+transform = Transform( 0.878233, 0.344011, 0.332208, 0, 0.694658, -0.71934, -0.478232, 0.631748, 0.610072, 49.6452, 12.6415, 55.1326 )
+mass = 95.4259
+contacts_reported = 72
+radius = 0.05
+length = 18
+
+[node name="String" parent="RoofSupport3" instance=ExtResource( 14 )]
+transform = Transform( -0.563671, 3.72529e-09, -0.826, 0.573789, 0.71934, -0.391559, 0.594174, -0.694658, -0.40547, 0.0501709, 18.0884, -0.0669479 )
+nodes/node_a = NodePath("..")
+nodes/node_b = NodePath("../../RoofSupport8")
+script = ExtResource( 13 )
+
+[node name="RoofSupport4" parent="." instance=ExtResource( 1 )]
+transform = Transform( -0.957339, 0.203256, 0.205396, 0, 0.710799, -0.703395, -0.288965, -0.673387, -0.680477, 52.6054, 12.7127, 79.7931 )
+mass = 95.4259
+contacts_reported = 72
+radius = 0.05
+length = 18
+
+[node name="String" parent="RoofSupport4" instance=ExtResource( 14 )]
+transform = Transform( -0.563671, -1.53668e-08, -0.826, 0.573789, 0.71934, -0.391559, 0.594174, -0.694658, -0.40547, -0.0155106, 18.141, 0.162682 )
+nodes/node_a = NodePath("..")
+nodes/node_b = NodePath("../../RoofSupport2")
+script = ExtResource( 13 )
+
+[node name="RoofSupport5" parent="." instance=ExtResource( 1 )]
+transform = Transform( -0.843391, -0.379928, -0.379928, 0, 0.707106, -0.707107, 0.5373, -0.596367, -0.596368, 63.3931, 12.5363, 78.6951 )
+mass = 95.4259
+contacts_reported = 72
+radius = 0.05
+length = 18
+
+[node name="String" parent="RoofSupport5" instance=ExtResource( 14 )]
+transform = Transform( -0.563671, 1.21072e-08, -0.826, 0.573789, 0.71934, -0.391559, 0.594174, -0.694658, -0.40547, 0.0533257, 18.2022, -0.0140228 )
+nodes/node_a = NodePath("..")
+nodes/node_b = NodePath("../../RoofSupport4")
+script = ExtResource( 13 )
+
+[node name="RoofSupport6" parent="." instance=ExtResource( 1 )]
+transform = Transform( -0.232139, -0.68779, -0.687791, 0, 0.707106, -0.707107, 0.972683, -0.164147, -0.164147, 69.1945, 12.5316, 70.5797 )
+mass = 95.4259
+contacts_reported = 72
+radius = 0.05
+length = 18
+
+[node name="String" parent="RoofSupport6" instance=ExtResource( 14 )]
+transform = Transform( -0.563671, -8.3819e-09, -0.826, 0.573789, 0.71934, -0.391559, 0.594174, -0.694659, -0.40547, -0.13752, 18.4943, 0.121986 )
+nodes/node_a = NodePath("..")
+nodes/node_b = NodePath("../../RoofSupport2")
+script = ExtResource( 13 )
+
+[node name="RoofSupport7" parent="." instance=ExtResource( 1 )]
+transform = Transform( 0.476576, -0.621641, -0.621641, 0, 0.707106, -0.707107, 0.879133, 0.33699, 0.33699, 67.5833, 12.63, 60.9777 )
+mass = 95.4259
+contacts_reported = 72
+radius = 0.05
+length = 18
+
+[node name="String" parent="RoofSupport7" instance=ExtResource( 14 )]
+transform = Transform( -0.563671, -5.40167e-08, -0.826, 0.573789, 0.71934, -0.391559, 0.594174, -0.694658, -0.40547, -0.0161514, 18.0406, -0.0371246 )
+nodes/node_a = NodePath("..")
+nodes/node_b = NodePath("../../RoofSupport2")
+script = ExtResource( 13 )
+
+[node name="RoofSupport8" parent="." instance=ExtResource( 1 )]
+transform = Transform( 0.905376, -0.301291, -0.299195, 0, 0.704634, -0.709571, 0.42461, 0.642428, 0.637959, 61.5107, 12.733, 55.0877 )
+mass = 95.4259
+contacts_reported = 72
+radius = 0.05
+length = 18
+
+[node name="String" parent="RoofSupport8" instance=ExtResource( 14 )]
+transform = Transform( -0.563671, -7.17118e-08, -0.826, 0.573789, 0.71934, -0.391559, 0.594174, -0.694658, -0.40547, 0.201607, 17.9808, 0.224995 )
+nodes/node_a = NodePath("..")
+nodes/node_b = NodePath("../../RoofSupport7")
+script = ExtResource( 13 )
+
+[node name="Twig" parent="." instance=ExtResource( 1 )]
+transform = Transform( 9.2962e-09, -0.212672, 0.977124, -1, -4.37114e-08, 0, 4.27114e-08, -0.977123, -0.212672, 47.7687, 14.5144, 68.8158 )
+mass = 26.5072
+contacts_reported = 20
+radius = 0.05
+length = 5
+
+[node name="String" parent="Twig" instance=ExtResource( 14 )]
+transform = Transform( -0.533553, 0.0239152, -0.84543, 0.596892, 0.718838, -0.356364, 0.599203, -0.694769, -0.39781, -0.0161505, 4.32427, -0.216003 )
+nodes/node_a = NodePath("..")
+nodes/node_b = NodePath("../../CenterSupport7")
+script = ExtResource( 13 )
+
+[node name="String2" parent="Twig" instance=ExtResource( 14 )]
+transform = Transform( -0.533553, 0.0239152, -0.84543, 0.596892, 0.718838, -0.356364, 0.599203, -0.69477, -0.39781, -0.0161505, -4.2948, -0.259995 )
+nodes/node_a = NodePath("..")
+nodes/node_b = NodePath("../../CenterSupport6")
+script = ExtResource( 13 )
+
+[node name="Twig2" parent="." instance=ExtResource( 1 )]
+transform = Transform( 3.63014e-08, -0.830479, 0.55705, -1, -4.37114e-08, 0, 2.43494e-08, -0.557049, -0.830479, 51.4725, 14.9435, 74.7083 )
+mass = 21.2057
+contacts_reported = 16
+radius = 0.05
+length = 4
+
+[node name="String" parent="Twig2" instance=ExtResource( 14 )]
+transform = Transform( -0.533553, 0.0239152, -0.845431, 0.596892, 0.718839, -0.356365, 0.599203, -0.69477, -0.397811, -0.0161505, 3.3411, -0.22316 )
+nodes/node_a = NodePath("..")
+nodes/node_b = NodePath("../../CenterSupport6")
+script = ExtResource( 13 )
+
+[node name="String2" parent="Twig2" instance=ExtResource( 14 )]
+transform = Transform( -0.533554, 0.0239152, -0.845431, 0.596892, 0.71884, -0.356365, 0.599203, -0.69477, -0.397811, -0.0161505, -3.09357, -0.210823 )
+nodes/node_a = NodePath("..")
+nodes/node_b = NodePath("../../CenterSupport5")
+script = ExtResource( 13 )
+
+[node name="Twig5" parent="." instance=ExtResource( 1 )]
+transform = Transform( 4.34461e-08, -0.99393, -0.110012, -1, -4.37114e-08, 0, -4.80878e-09, 0.110012, -0.99393, 57.5979, 15.4886, 75.9801 )
+mass = 21.2057
+contacts_reported = 16
+radius = 0.05
+length = 4
+
+[node name="String" parent="Twig5" instance=ExtResource( 14 )]
+transform = Transform( -0.533553, 0.0239152, -0.845431, 0.596892, 0.718839, -0.356365, 0.599203, -0.69477, -0.397811, -0.0161524, 3.72919, -0.173035 )
+nodes/node_a = NodePath("..")
+nodes/node_b = NodePath("../../CenterSupport5")
+script = ExtResource( 13 )
+
+[node name="String2" parent="Twig5" instance=ExtResource( 14 )]
+transform = Transform( -0.533554, 0.0239152, -0.845431, 0.596893, 0.71884, -0.356365, 0.599203, -0.69477, -0.397811, -0.0161505, -3.52707, -0.246773 )
+nodes/node_a = NodePath("..")
+nodes/node_b = NodePath("../../CenterSupport4")
+script = ExtResource( 13 )
+
+[node name="Twig6" parent="." instance=ExtResource( 1 )]
+transform = Transform( 3.05265e-08, -0.698365, -0.715742, -1, -4.37114e-08, 0, -3.12861e-08, 0.715741, -0.698365, 63.549, 15.0275, 72.9484 )
+mass = 21.2057
+contacts_reported = 16
+radius = 0.05
+length = 4
+
+[node name="String" parent="Twig6" instance=ExtResource( 14 )]
+transform = Transform( -0.533553, 0.0239152, -0.845431, 0.596892, 0.718839, -0.356365, 0.599203, -0.69477, -0.397811, -0.0161524, 3.72919, -0.173035 )
+nodes/node_a = NodePath("..")
+nodes/node_b = NodePath("../../CenterSupport4")
+script = ExtResource( 13 )
+
+[node name="String2" parent="Twig6" instance=ExtResource( 14 )]
+transform = Transform( -0.533554, 0.0239152, -0.845431, 0.596893, 0.71884, -0.356365, 0.599203, -0.69477, -0.397811, -0.0161505, -3.87506, -0.238602 )
+nodes/node_a = NodePath("..")
+nodes/node_b = NodePath("../../CenterSupport3")
+script = ExtResource( 13 )
+
+[node name="Twig7" parent="." instance=ExtResource( 1 )]
+transform = Transform( 4.47818e-10, -0.0102448, -0.999948, -1, -4.37114e-08, 0, -4.37091e-08, 0.999947, -0.0102449, 66.2723, 14.5875, 66.204 )
+mass = 21.2057
+contacts_reported = 16
+radius = 0.05
+length = 4
+
+[node name="String" parent="Twig7" instance=ExtResource( 14 )]
+transform = Transform( -0.533553, 0.0239152, -0.845431, 0.596892, 0.718839, -0.356365, 0.599203, -0.69477, -0.397811, -0.0161524, 3.95982, -0.1754 )
+nodes/node_a = NodePath("..")
+nodes/node_b = NodePath("../../CenterSupport3")
+script = ExtResource( 13 )
+
+[node name="String2" parent="Twig7" instance=ExtResource( 14 )]
+transform = Transform( -0.533554, 0.0239152, -0.845431, 0.596893, 0.71884, -0.356365, 0.599203, -0.69477, -0.397811, -0.0161505, -4.02477, -0.237068 )
+nodes/node_a = NodePath("..")
+nodes/node_b = NodePath("../../CenterSupport2")
+script = ExtResource( 13 )
+
+[node name="Twig4" parent="." instance=ExtResource( 1 )]
+transform = Transform( -3.27536e-08, 0.749314, -0.662215, -1, -4.37114e-08, 0, -2.89463e-08, 0.662214, 0.749314, 63.2873, 13.7163, 59.4277 )
+mass = 21.2057
+contacts_reported = 16
+radius = 0.05
+length = 4
+
+[node name="String" parent="Twig4" instance=ExtResource( 14 )]
+transform = Transform( -0.533553, 0.0239152, -0.845431, 0.596892, 0.718839, -0.356365, 0.599203, -0.69477, -0.397811, -0.0161524, 3.95982, -0.1754 )
+nodes/node_a = NodePath("..")
+nodes/node_b = NodePath("../../CenterSupport2")
+script = ExtResource( 13 )
+
+[node name="String2" parent="Twig4" instance=ExtResource( 14 )]
+transform = Transform( -0.533554, 0.0239152, -0.845431, 0.596893, 0.71884, -0.356365, 0.599203, -0.69477, -0.397811, -0.0161505, -4.02477, -0.237068 )
+nodes/node_a = NodePath("..")
+nodes/node_b = NodePath("../../CenterSupport")
+script = ExtResource( 13 )
+
+[node name="Twig3" parent="." instance=ExtResource( 1 )]
+transform = Transform( -4.35892e-08, 0.997204, 0.0747177, -1, -4.37114e-08, 0, 3.26601e-09, -0.0747176, 0.997205, 55.4142, 14.5144, 57.1662 )
+mass = 26.5072
+contacts_reported = 20
+radius = 0.05
+length = 5
+
+[node name="String" parent="Twig3" instance=ExtResource( 14 )]
+transform = Transform( -0.533553, 0.0239152, -0.845431, 0.596893, 0.718838, -0.356364, 0.599202, -0.69477, -0.397811, -0.0161524, 4.77088, -0.21772 )
+nodes/node_a = NodePath("..")
+nodes/node_b = NodePath("../../CenterSupport")
+script = ExtResource( 13 )
+
+[node name="String2" parent="Twig3" instance=ExtResource( 14 )]
+transform = Transform( -0.533554, 0.0239152, -0.845431, 0.596893, 0.718839, -0.356365, 0.599203, -0.69477, -0.397811, -0.0161409, -4.96077, -0.245056 )
+nodes/node_a = NodePath("..")
+nodes/node_b = NodePath("../../CenterSupport8")
+script = ExtResource( 13 )
+
+[node name="Twig8" parent="." instance=ExtResource( 1 )]
+transform = Transform( -1.93762e-08, 0.443274, 0.896386, -1, -4.37114e-08, 0, 3.91823e-08, -0.896385, 0.443275, 48.6604, 14.0957, 61.3338 )
+mass = 26.5072
+contacts_reported = 20
+radius = 0.05
+length = 5
+
+[node name="String" parent="Twig8" instance=ExtResource( 14 )]
+transform = Transform( -0.533553, 0.0239152, -0.845431, 0.596893, 0.718839, -0.356365, 0.599203, -0.69477, -0.397811, -0.0161695, 4.54876, -0.261726 )
+nodes/node_a = NodePath("..")
+nodes/node_b = NodePath("../../CenterSupport8")
+script = ExtResource( 13 )
+
+[node name="String2" parent="Twig8" instance=ExtResource( 14 )]
+transform = Transform( -0.533554, 0.0239152, -0.845431, 0.596893, 0.71884, -0.356365, 0.599203, -0.694771, -0.397811, -0.0161409, -3.45512, -0.233711 )
+nodes/node_a = NodePath("..")
+nodes/node_b = NodePath("../../CenterSupport7")
+script = ExtResource( 13 )
+
+[node name="RoofTwig" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1.91069e-15, -4.37114e-08, 1, -0.827698, -0.561173, -2.45297e-08, 0.561174, -0.827698, -3.61798e-08, 58.4665, 11.0982, 51.5443 )
+mass = 42.4115
+contacts_reported = 32
+radius = 0.05
+length = 8
+
+[node name="String" parent="RoofTwig" instance=ExtResource( 14 )]
+transform = Transform( -0.533553, 0.0239152, -0.845431, 0.596893, 0.718838, -0.356364, 0.599202, -0.69477, -0.397811, 0.328274, 6.26662, -0.0334053 )
+nodes/node_a = NodePath("..")
+nodes/node_b = NodePath("../../Log13")
+script = ExtResource( 13 )
+
+[node name="String2" parent="RoofTwig" instance=ExtResource( 14 )]
+transform = Transform( -0.533554, 0.0239152, -0.845431, 0.596893, 0.718839, -0.356365, 0.599203, -0.694771, -0.397811, 0.331268, -6.66793, -0.00880814 )
+nodes/node_a = NodePath("..")
+nodes/node_b = NodePath("../../Twig3")
+script = ExtResource( 13 )
+
+[node name="RoofTwig2" parent="." instance=ExtResource( 1 )]
+transform = Transform( 0.100792, -0.148662, 0.983738, -0.832246, -0.554404, 0.00148898, 0.545167, -0.818862, -0.179603, 51.1263, 10.871, 51.6332 )
+mass = 42.4115
+contacts_reported = 32
+radius = 0.05
+length = 8
+
+[node name="String" parent="RoofTwig2" instance=ExtResource( 14 )]
+transform = Transform( -0.533553, 0.0239152, -0.845431, 0.596893, 0.718838, -0.356364, 0.599202, -0.69477, -0.397811, 0.328274, 6.26662, -0.0334053 )
+nodes/node_a = NodePath("..")
+nodes/node_b = NodePath("../../Log13")
+script = ExtResource( 13 )
+
+[node name="String2" parent="RoofTwig2" instance=ExtResource( 14 )]
+transform = Transform( -0.533554, 0.0239152, -0.845431, 0.596893, 0.718839, -0.356365, 0.599203, -0.694771, -0.397811, 0.331268, -6.66793, -0.00880814 )
+nodes/node_a = NodePath("..")
+nodes/node_b = NodePath("../../Twig3")
+script = ExtResource( 13 )
+
+[node name="RoofTwig3" parent="." instance=ExtResource( 1 )]
+transform = Transform( 0.056784, -0.0825693, 0.994966, -0.832246, -0.554404, 0.00148898, 0.55149, -0.828141, -0.100199, 54.9201, 11.2004, 51.8407 )
+mass = 42.4115
+contacts_reported = 32
+radius = 0.05
+length = 8
+
+[node name="String" parent="RoofTwig3" instance=ExtResource( 14 )]
+transform = Transform( -0.533553, 0.0239152, -0.845431, 0.596893, 0.718838, -0.356364, 0.599202, -0.69477, -0.397811, 0.328274, 6.26662, -0.0334053 )
+nodes/node_a = NodePath("..")
+nodes/node_b = NodePath("../../Log13")
+script = ExtResource( 13 )
+
+[node name="String2" parent="RoofTwig3" instance=ExtResource( 14 )]
+transform = Transform( -0.533554, 0.0239152, -0.845431, 0.596893, 0.71884, -0.356365, 0.599203, -0.694772, -0.397811, 0.237137, -6.52658, 0.00830078 )
+nodes/node_a = NodePath("..")
+nodes/node_b = NodePath("../../Twig3")
+script = ExtResource( 13 )
+
+[node name="RoofTwigParallel" parent="." instance=ExtResource( 1 )]
+transform = Transform( -4.35892e-08, 0.997204, 0.0747177, -1, -4.37114e-08, 0, 3.26601e-09, -0.0747176, 0.997205, 55.4142, 12.6789, 54.4584 )
+mass = 21.2057
+contacts_reported = 16
+radius = 0.05
+length = 4
+
+[node name="String" parent="RoofTwigParallel" instance=ExtResource( 14 )]
+transform = Transform( -0.533553, 0.0239152, -0.845431, 0.596893, 0.718838, -0.356364, 0.599202, -0.69477, -0.397811, -0.349647, 3.08316, -0.00414276 )
+nodes/node_a = NodePath("..")
+nodes/node_b = NodePath("../../CenterSupport")
+script = ExtResource( 13 )
+
+[node name="String2" parent="RoofTwigParallel" instance=ExtResource( 14 )]
+transform = Transform( -0.533554, 0.0239152, -0.845431, 0.596893, 0.718839, -0.356365, 0.599203, -0.69477, -0.397811, -0.345911, -3.51815, 0.00229645 )
+nodes/node_a = NodePath("..")
+nodes/node_b = NodePath("../../CenterSupport8")
+script = ExtResource( 13 )
+
+[node name="RoofTwigParallel2" parent="." instance=ExtResource( 1 )]
+transform = Transform( -4.35892e-08, 0.997204, 0.0747177, -1, -4.37114e-08, 0, 3.26601e-09, -0.0747176, 0.997205, 54.9754, 11.786, 53.2006 )
+mass = 21.2057
+contacts_reported = 16
+radius = 0.05
+length = 4
+
+[node name="String" parent="RoofTwigParallel2" instance=ExtResource( 14 )]
+transform = Transform( -0.533553, 0.0239152, -0.845431, 0.596893, 0.718838, -0.356364, 0.599202, -0.69477, -0.39781, -0.183765, 3.49241, 0.0265236 )
+nodes/node_a = NodePath("..")
+nodes/node_b = NodePath("../../CenterSupport")
+script = ExtResource( 13 )
+
+[node name="String2" parent="RoofTwigParallel2" instance=ExtResource( 14 )]
+transform = Transform( -0.533554, 0.0239152, -0.845431, 0.596893, 0.718838, -0.356365, 0.599203, -0.694771, -0.397811, -0.22897, -3.67807, -0.00968552 )
+nodes/node_a = NodePath("..")
+nodes/node_b = NodePath("../../CenterSupport8")
+script = ExtResource( 13 )
+
+[node name="RoofTwigParallel3" parent="." instance=ExtResource( 1 )]
+transform = Transform( -4.35892e-08, 0.997204, 0.0747177, -1, -4.37114e-08, 0, 3.26601e-09, -0.0747176, 0.997205, 54.9754, 10.0911, 50.7458 )
+mass = 21.2057
+contacts_reported = 16
+radius = 0.05
+length = 4
+
+[node name="String" parent="RoofTwigParallel3" instance=ExtResource( 14 )]
+transform = Transform( -0.533553, 0.0239152, -0.845431, 0.596893, 0.718838, -0.356364, 0.599202, -0.69477, -0.39781, -0.183765, 3.49241, 0.0265236 )
+nodes/node_a = NodePath("..")
+nodes/node_b = NodePath("../../CenterSupport")
+script = ExtResource( 13 )
+
+[node name="String2" parent="RoofTwigParallel3" instance=ExtResource( 14 )]
+transform = Transform( -0.533554, 0.0239152, -0.845431, 0.596893, 0.718838, -0.356365, 0.599203, -0.694771, -0.397811, -0.22897, -3.67807, -0.00968552 )
+nodes/node_a = NodePath("..")
+nodes/node_b = NodePath("../../CenterSupport8")
+script = ExtResource( 13 )
+
+[node name="RoofTwigParallel4" parent="." instance=ExtResource( 1 )]
+transform = Transform( -4.35892e-08, 0.997204, 0.0747177, -1, -4.37114e-08, 0, 3.26601e-09, -0.0747176, 0.997205, 54.6122, 9.00924, 49.1665 )
+mass = 21.2057
+contacts_reported = 16
+radius = 0.05
+length = 4
+
+[node name="String" parent="RoofTwigParallel4" instance=ExtResource( 14 )]
+transform = Transform( -0.533553, 0.0239152, -0.845431, 0.596893, 0.718838, -0.356364, 0.599202, -0.69477, -0.39781, -0.183765, 3.49241, 0.0265236 )
+nodes/node_a = NodePath("..")
+nodes/node_b = NodePath("../../CenterSupport")
+script = ExtResource( 13 )
+
+[node name="String2" parent="RoofTwigParallel4" instance=ExtResource( 14 )]
+transform = Transform( -0.533554, 0.0239152, -0.845431, 0.596893, 0.718838, -0.356365, 0.599203, -0.694771, -0.397811, -0.22897, -3.67807, -0.00968552 )
+nodes/node_a = NodePath("..")
+nodes/node_b = NodePath("../../CenterSupport8")
+script = ExtResource( 13 )
+
+[node name="Thatch" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.995258, -0.0486351, 0.0842385, -0.0162752, 0.770554, 0.637167, -0.095899, -0.635517, 0.766108, 57.8529, 15.006, 55.9984 )
+gravity_scale = 0.5
+
+[node name="Thatch2" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.997456, -0.0356443, 0.0617377, -0.011928, 0.77037, 0.637486, -0.0702836, -0.6366, 0.767985, 56.2302, 15.0117, 56.1334 )
+gravity_scale = 0.5
+
+[node name="Thatch3" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.99681, -0.0399081, 0.0691228, -0.0133548, 0.770424, 0.637392, -0.078691, -0.636281, 0.767433, 54.4832, 15.0309, 56.2467 )
+gravity_scale = 0.5
+
+[node name="Thatch4" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.993984, -0.0547631, 0.0948524, -0.0183258, 0.77066, 0.636982, -0.107982, -0.634889, 0.76502, 52.9602, 15.0309, 56.2467 )
+gravity_scale = 0.5
+
+[node name="Thatch5" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.993984, -0.0547631, 0.0948524, 0, 0.866025, 0.5, -0.109526, -0.496992, 0.860815, 52.2007, 11.7613, 52.1204 )
+gravity_scale = 0.5
+
+[node name="Thatch6" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.993984, -0.0547631, 0.0948524, 0, 0.866025, 0.5, -0.109526, -0.496992, 0.860815, 53.8714, 11.6513, 51.83 )
+gravity_scale = 0.5
+
+[node name="Thatch7" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.997863, -0.0326667, 0.0565804, 0, 0.866025, 0.5, -0.0653335, -0.498932, 0.864175, 55.6071, 11.7567, 51.9719 )
+gravity_scale = 0.5
+
+[node name="Thatch8" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.99971, -0.0120416, 0.0208567, 0, 0.866025, 0.5, -0.0240832, -0.499855, 0.865774, 57.338, 11.7567, 51.8885 )
+gravity_scale = 0.5
+
+[node name="Thatch9" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.993984, -0.0547631, 0.0948524, 0, 0.866025, 0.5, -0.109526, -0.496992, 0.860815, 51.6075, 8.78306, 47.8004 )
+gravity_scale = 0.5
+
+[node name="Thatch10" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.996616, -0.0410997, 0.0711868, 0, 0.866025, 0.5, -0.0821994, -0.498308, 0.863095, 53.4799, 8.8485, 47.7355 )
+gravity_scale = 0.5
+
+[node name="Thatch11" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.998483, -0.0275274, 0.0476788, 0, 0.866025, 0.5, -0.0550547, -0.499242, 0.864712, 55.4833, 8.8485, 47.7355 )
+gravity_scale = 0.5
+
+[node name="Thatch12" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.998483, -0.0275274, 0.0476788, 0, 0.866025, 0.5, -0.0550547, -0.499242, 0.864712, 57.2574, 8.88002, 47.7355 )
+gravity_scale = 0.5
+
+[node name="Thatch13" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.937628, -0.17382, 0.301065, -0.0581668, 0.775375, 0.628816, -0.342739, -0.607108, 0.716903, 51.3641, 15.1039, 56.5066 )
+gravity_scale = 0.5
+
+[node name="Thatch14" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.932425, -0.350454, 0.0881264, 0.257374, 0.815233, 0.5188, -0.253659, -0.46106, 0.850342, 49.6997, 7.99642, 47.5531 )
+gravity_scale = 0.5
+
+[node name="Thatch15" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.923655, -0.37652, 0.0713776, 0.287261, 0.803528, 0.521368, -0.253659, -0.46106, 0.850342, 48.0064, 7.0955, 47.3842 )
+gravity_scale = 0.5
+
+[node name="Thatch16" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.801375, -0.499761, 0.32869, 0.223146, 0.759606, 0.610904, -0.554981, -0.416218, 0.720249, 46.2811, 6.10088, 47.749 )
+gravity_scale = 0.5
+
+[node name="Thatch17" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.891137, -0.343899, 0.295986, 0.123686, 0.811746, 0.570762, -0.43655, -0.472018, 0.765913, 48.4529, 10.1155, 51.4177 )
+gravity_scale = 0.5
+width_meters = 0.6
+
+[node name="Thatch18" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.961321, -0.240663, 0.133953, 0.123686, 0.811746, 0.570762, -0.246097, -0.532117, 0.810115, 50.4996, 11.3572, 52.2078 )
+gravity_scale = 0.5
+
+[node name="Thatch19" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.864087, -0.361759, 0.349978, 0.00961361, 0.707041, 0.707107, -0.503251, -0.607637, 0.614423, 44.4012, 4.17662, 46.9474 )
+gravity_scale = 0.5
+
+[node name="Thatch20" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.740749, -0.480053, 0.469937, 0.00961361, 0.707041, 0.707107, -0.671713, -0.51927, 0.528355, 43.0014, 4.16954, 47.9661 )
+gravity_scale = 0.5
+
+[node name="Thatch21" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.665709, -0.532181, 0.523081, 0.00961361, 0.707041, 0.707107, -0.746149, -0.465699, 0.4758, 41.7312, 4.10982, 49.221 )
+gravity_scale = 0.5
+
+[node name="Thatch22" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.624194, -0.556693, 0.548156, 0.00961361, 0.707041, 0.707107, -0.78121, -0.436102, 0.446683, 40.4545, 4.09604, 50.6882 )
+gravity_scale = 0.5
+
+[node name="Thatch23" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.491385, -0.619209, 0.612471, 0.00961361, 0.707041, 0.707107, -0.870889, -0.341574, 0.353382, 39.3142, 4.11707, 52.2829 )
+gravity_scale = 0.5
+
+[node name="Thatch24" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.491385, -0.619209, 0.612471, 0.00961361, 0.707041, 0.707107, -0.870889, -0.341574, 0.353382, 38.3551, 4.11707, 53.9785 )
+gravity_scale = 0.5
+
+[node name="Thatch25" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.423471, -0.643477, 0.63766, 0.00961361, 0.707041, 0.707107, -0.905859, -0.293309, 0.305598, 37.5545, 4.11707, 55.6623 )
+gravity_scale = 0.5
+
+[node name="Thatch26" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.37915, -0.656913, 0.651698, 0.00961361, 0.707041, 0.707107, -0.925285, -0.261835, 0.27439, 36.7566, 4.10513, 57.4825 )
+gravity_scale = 0.5
+
+[node name="Thatch27" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.342269, -0.666752, 0.662037, 0.00961361, 0.707041, 0.707107, -0.939553, -0.235656, 0.248408, 35.9746, 4.10513, 59.2003 )
+gravity_scale = 0.5
+
+[node name="Thatch28" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.264318, -0.683785, 0.680128, 0.00961361, 0.707041, 0.707107, -0.964387, -0.180362, 0.193457, 35.336, 4.10513, 61.0103 )
+gravity_scale = 0.5
+
+[node name="Thatch29" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.204438, -0.693593, 0.690749, 0.00961361, 0.707041, 0.707107, -0.978832, -0.137919, 0.151214, 34.8436, 4.10513, 62.7568 )
+gravity_scale = 0.5
+
+[node name="Thatch30" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.78775, -0.440916, 0.430166, 0.00961361, 0.707041, 0.707107, -0.61592, -0.552888, 0.561211, 46.1397, 8.22765, 50.777 )
+gravity_scale = 0.5
+
+[node name="Thatch31" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.711872, -0.501446, 0.491721, 0.00961361, 0.707041, 0.707107, -0.702243, -0.498642, 0.508144, 45.0376, 8.2604, 51.7554 )
+gravity_scale = 0.5
+
+[node name="Thatch32" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.65256, -0.540244, 0.531322, 0.00961361, 0.707041, 0.707107, -0.757676, -0.456321, 0.46658, 43.8048, 8.17901, 52.9144 )
+gravity_scale = 0.5
+
+[node name="Thatch33" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.586814, -0.576561, 0.56853, 0.00961361, 0.707041, 0.707107, -0.809665, -0.409474, 0.420444, 42.7098, 8.12687, 54.2183 )
+gravity_scale = 0.5
+
+[node name="Thatch34" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.502516, -0.614776, 0.607888, 0.00961361, 0.707041, 0.707107, -0.864514, -0.349488, 0.36121, 41.7004, 8.1272, 55.6978 )
+gravity_scale = 0.5
+
+[node name="Thatch35" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.44994, -0.634568, 0.628393, 0.00961361, 0.707041, 0.707107, -0.893007, -0.312114, 0.324226, 40.9986, 8.22038, 57.166 )
+gravity_scale = 0.5
+
+[node name="Thatch36" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.387339, -0.654566, 0.649239, 0.00961361, 0.707041, 0.707107, -0.921887, -0.267649, 0.280158, 40.3112, 8.25449, 58.6694 )
+gravity_scale = 0.5
+
+[node name="Thatch37" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.348526, -0.665166, 0.660366, 0.00961361, 0.707041, 0.707107, -0.93725, -0.240096, 0.252817, 39.5344, 8.16785, 60.2699 )
+gravity_scale = 0.5
+
+[node name="Thatch38" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.275728, -0.681599, 0.677788, 0.00961361, 0.707041, 0.707107, -0.961188, -0.188453, 0.201504, 39.0739, 8.15842, 61.9366 )
+gravity_scale = 0.5
+
+[node name="Thatch39" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.7966, -0.432851, 0.421981, 0.00961361, 0.707041, 0.707107, -0.60443, -0.559225, 0.567391, 47.9169, 11.8143, 54.3081 )
+gravity_scale = 0.5
+
+[node name="Thatch40" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.712117, -0.501272, 0.491544, 0.00961361, 0.707041, 0.707107, -0.701994, -0.498817, 0.508316, 46.7487, 11.759, 55.3233 )
+gravity_scale = 0.5
+
+[node name="Thatch41" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.608597, -0.565223, 0.556896, 0.00961361, 0.707041, 0.707107, -0.793421, -0.424989, 0.435737, 45.6971, 11.7546, 56.5527 )
+gravity_scale = 0.5
+
+[node name="Thatch42" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.522477, -0.606486, 0.599327, 0.00961361, 0.707041, 0.707107, -0.852599, -0.363685, 0.375243, 44.7813, 11.7522, 57.9001 )
+gravity_scale = 0.5
+
+[node name="Thatch43" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.476019, -0.62511, 0.618581, 0.00961361, 0.707041, 0.707107, -0.879382, -0.330649, 0.342575, 43.9232, 11.7303, 59.2443 )
+gravity_scale = 0.5
+
+[node name="Thatch44" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.37957, -0.656794, 0.651573, 0.00961361, 0.707041, 0.707107, -0.925113, -0.262133, 0.274686, 43.1826, 11.7529, 60.7577 )
+gravity_scale = 0.5
+
+[node name="Thatch45" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.298596, -0.676906, 0.672784, 0.00961361, 0.707041, 0.707107, -0.954331, -0.204672, 0.217628, 42.5835, 11.7266, 62.2227 )
+gravity_scale = 0.5
+
+[node name="Thatch46" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.790697, -0.438257, 0.427467, 0.00961361, 0.707041, 0.707107, -0.612132, -0.554998, 0.563269, 49.8634, 15.4132, 57.6744 )
+gravity_scale = 0.5
+
+[node name="Thatch47" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.666503, -0.531685, 0.522574, 0.00961361, 0.707041, 0.707107, -0.74544, -0.466265, 0.476357, 48.6814, 15.4232, 58.8094 )
+gravity_scale = 0.5
+
+[node name="Thatch48" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.572794, -0.583522, 0.575681, 0.00961361, 0.707041, 0.707107, -0.819643, -0.399492, 0.410599, 47.7465, 15.4509, 59.9994 )
+gravity_scale = 0.5
+
+[node name="Thatch49" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.502139, -0.614929, 0.608045, 0.00961361, 0.707041, 0.707107, -0.864733, -0.34922, 0.360945, 46.9263, 15.5074, 61.2631 )
+gravity_scale = 0.5
+
+[node name="Thatch50" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.357555, -0.662818, 0.657896, 0.00961361, 0.707041, 0.707107, -0.933842, -0.246505, 0.259178, 46.2323, 15.5375, 62.6894 )
+gravity_scale = 0.5
+
+[node name="Thatch51" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.780985, -0.446921, 0.436262, 0.00961361, 0.707041, 0.707107, -0.624476, -0.548046, 0.556485, 51.7337, 19.2165, 60.9509 )
+gravity_scale = 0.5
+
+[node name="Thatch52" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.58872, -0.575595, 0.567538, 0.00961361, 0.707041, 0.707107, -0.80828, -0.410832, 0.421783, 50.5312, 19.1811, 62.2197 )
+gravity_scale = 0.5
+
+[node name="Thatch70" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.531627, -0.602535, 0.595251, 0.00961361, 0.707041, 0.707107, -0.846923, -0.370195, 0.381675, 49.8385, 19.1811, 63.2745 )
+gravity_scale = 0.5
+
+[node name="Thatch53" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.355729, -0.663298, 0.658401, 0.00961361, 0.707041, 0.707107, -0.934539, -0.245209, 0.257892, 49.139, 19.224, 64.6118 )
+gravity_scale = 0.5
+
+[node name="Thatch54" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.794281, -0.434594, 0.424553, 0.0171726, 0.714575, 0.699348, -0.607308, -0.548188, 0.575037, 53.8485, 22.6839, 64.3334 )
+gravity_scale = 0.5
+
+[node name="Thatch55" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.475927, -0.625145, 0.618617, 0.00961361, 0.707041, 0.707107, -0.879432, -0.330584, 0.34251, 52.8568, 22.6751, 65.5949 )
+gravity_scale = 0.5
+
+[node name="Thatch56" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.0445963, -0.706739, 0.706067, 0.00961361, 0.707041, 0.707107, -0.998959, -0.0247465, 0.0383258, 52.6038, 22.7394, 67.1451 )
+gravity_scale = 0.5
+
+[node name="Thatch57" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.347621, -0.660671, 0.665336, 0.00961361, 0.707041, 0.707107, -0.937586, 0.252201, -0.239431, 52.8128, 22.7394, 68.4848 )
+gravity_scale = 0.5
+
+[node name="Thatch58" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.608568, -0.547497, 0.574362, 0.0171726, 0.714575, 0.699348, -0.793315, 0.435464, -0.425466, 53.5009, 22.7895, 69.7126 )
+gravity_scale = 0.5
+
+[node name="Thatch59" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.880187, -0.329591, 0.341527, 0.00961361, 0.707041, 0.707107, -0.474529, 0.625669, -0.61916, 54.7639, 22.7807, 70.7023 )
+gravity_scale = 0.5
+
+[node name="Thatch60" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.999028, -0.023624, 0.0372043, 0.00961361, 0.707041, 0.707107, -0.0430096, 0.706777, -0.706127, 56.3146, 22.8449, 70.9528 )
+gravity_scale = 0.5
+
+[node name="Thatch61" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.937032, 0.25325, -0.240487, 0.00961361, 0.707041, 0.707107, 0.34911, 0.66027, -0.664955, 57.6539, 22.8449, 70.7416 )
+gravity_scale = 0.5
+
+[node name="Thatch62" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.793273, 0.435502, -0.425506, 0.0171726, 0.714575, 0.699348, 0.608624, 0.547467, -0.574332, 58.9975, 22.6839, 70.0612 )
+gravity_scale = 0.5
+
+[node name="Thatch63" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.474468, 0.625692, -0.619184, 0.00961361, 0.707041, 0.707107, 0.88022, 0.329547, -0.341484, 59.9871, 22.6751, 68.798 )
+gravity_scale = 0.5
+
+[node name="Thatch64" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.04294, 0.706779, -0.70613, 0.00961361, 0.707041, 0.707107, 0.999031, 0.0235746, -0.037155, 60.2376, 22.7394, 67.2473 )
+gravity_scale = 0.5
+
+[node name="Thatch65" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.349175, 0.660252, -0.664939, 0.00961361, 0.707041, 0.707107, 0.937008, -0.253296, 0.240534, 60.0263, 22.7394, 65.9081 )
+gravity_scale = 0.5
+
+[node name="Thatch66" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.609883, 0.546774, -0.573655, 0.0171726, 0.714575, 0.699348, 0.792305, -0.436372, 0.426418, 59.3362, 22.7895, 64.6813 )
+gravity_scale = 0.5
+
+[node name="Thatch67" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.880972, 0.328553, -0.3405, 0.00961361, 0.707041, 0.707107, 0.473069, -0.626215, 0.619725, 58.0715, 22.7807, 63.6938 )
+gravity_scale = 0.5
+
+[node name="Thatch68" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.999098, 0.0224521, -0.0360335, 0.00961361, 0.707041, 0.707107, 0.0413532, -0.706815, 0.706188, 56.5204, 22.8449, 63.4458 )
+gravity_scale = 0.5
+
+[node name="Thatch69" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.936452, -0.254345, 0.241589, 0.00961361, 0.707041, 0.707107, -0.350663, -0.659849, 0.664556, 55.1815, 22.8449, 63.6592 )
+gravity_scale = 0.5
+
+[node name="Thatch71" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.05258, -0.706519, 0.705738, 0.00961361, 0.707041, 0.707107, -0.99857, -0.030395, 0.0439684, 48.8393, 19.2165, 66.3392 )
+gravity_scale = 0.5
+
+[node name="Thatch72" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.21254, -0.689536, 0.692362, 0.00961361, 0.707041, 0.707107, -0.977105, 0.156945, -0.143646, 48.9879, 19.1811, 68.081 )
+gravity_scale = 0.5
+
+[node name="Thatch73" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.279361, -0.677084, 0.680819, 0.00961361, 0.707041, 0.707107, -0.960138, 0.204083, -0.191011, 49.3155, 19.1811, 69.2996 )
+gravity_scale = 0.5
+
+[node name="Thatch74" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.46174, -0.624096, 0.630317, 0.00961361, 0.707041, 0.707107, -0.886963, 0.332559, -0.32047, 49.8497, 19.224, 70.7111 )
+gravity_scale = 0.5
+
+[node name="Thatch75" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.681607, -0.512772, 0.521992, 0.00961361, 0.707041, 0.707107, -0.731655, 0.486988, -0.476995, 50.7605, 19.2165, 72.1781 )
+gravity_scale = 0.5
+
+[node name="Thatch76" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.850385, -0.366243, 0.377771, 0.00961361, 0.707041, 0.707107, -0.526073, 0.604945, -0.597736, 52.1163, 19.1811, 73.2815 )
+gravity_scale = 0.5
+
+[node name="Thatch77" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.884612, -0.32369, 0.335687, 0.00961361, 0.707041, 0.707107, -0.466228, 0.628742, -0.622345, 53.2204, 19.1811, 73.8926 )
+gravity_scale = 0.5
+
+[node name="Thatch78" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.95871, -0.194477, 0.207493, 0.00961361, 0.707041, 0.707107, -0.284222, 0.679905, -0.675978, 54.6067, 19.224, 74.4892 )
+gravity_scale = 0.5
+
+[node name="Thatch79" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.998318, 0.0472195, -0.0336422, 0.00961361, 0.707041, 0.707107, 0.0571755, 0.705594, -0.706306, 56.3972, 19.2165, 74.7902 )
+gravity_scale = 0.5
+
+[node name="Thatch80" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.947926, 0.23157, -0.218661, 0.00961361, 0.707041, 0.707107, 0.318347, 0.668182, -0.672449, 58.1122, 19.1811, 74.4516 )
+gravity_scale = 0.5
+
+[node name="Thatch81" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.923737, 0.277059, -0.264475, 0.00961361, 0.707041, 0.707107, 0.382905, 0.650638, -0.655784, 59.2876, 19.1811, 73.9924 )
+gravity_scale = 0.5
+
+[node name="Thatch82" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.831015, 0.398954, -0.387619, 0.00961361, 0.707041, 0.707107, 0.556166, 0.58389, -0.591398, 60.632, 19.224, 73.3067 )
+gravity_scale = 0.5
+
+[node name="Thatch83" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.735095, 0.484386, -0.474347, 0.00961361, 0.707041, 0.707107, 0.677895, 0.515231, -0.5244, 61.9179, 19.2165, 72.2765 )
+gravity_scale = 0.5
+
+[node name="Thatch84" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.53037, 0.603083, -0.595817, 0.00961361, 0.707041, 0.707107, 0.847711, 0.369301, -0.380792, 63.0281, 19.1811, 70.9262 )
+gravity_scale = 0.5
+
+[node name="Thatch85" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.4707, 0.627096, -0.620638, 0.00961361, 0.707041, 0.707107, 0.882241, 0.326868, -0.338833, 63.6448, 19.1811, 69.8253 )
+gravity_scale = 0.5
+
+[node name="Thatch86" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.289071, 0.678912, -0.674919, 0.00961361, 0.707041, 0.707107, 0.957259, 0.197915, -0.210912, 64.2484, 19.224, 68.442 )
+gravity_scale = 0.5
+
+[node name="Thatch87" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.0946228, 0.703323, -0.704545, 0.00961361, 0.707041, 0.707107, 0.995466, -0.0736818, 0.0601408, 64.3943, 19.2165, 66.6209 )
+gravity_scale = 0.5
+
+[node name="Thatch88" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.353717, 0.659016, -0.663764, 0.00961361, 0.707041, 0.707107, 0.935303, -0.256497, 0.243757, 63.9916, 19.1811, 64.9198 )
+gravity_scale = 0.5
+
+[node name="Thatch89" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.417322, 0.639776, -0.64539, 0.00961361, 0.707041, 0.707107, 0.908708, -0.301296, 0.288913, 63.4886, 19.1811, 63.7625 )
+gravity_scale = 0.5
+
+[node name="Thatch90" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.586979, 0.568497, -0.576425, 0.00961361, 0.707041, 0.707107, 0.809545, -0.420599, 0.409553, 62.7529, 19.224, 62.4447 )
+gravity_scale = 0.5
+
+[node name="Thatch91" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.805776, 0.413269, -0.424186, 0.00961361, 0.707041, 0.707107, 0.592142, -0.573848, 0.565744, 61.4985, 19.2165, 61.1881 )
+gravity_scale = 0.5
+
+[node name="Thatch92" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.93338, 0.247361, -0.260028, 0.00961361, 0.707041, 0.707107, 0.358761, -0.662499, 0.65756, 59.9611, 19.1811, 60.3562 )
+gravity_scale = 0.5
+
+[node name="Thatch93" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.955881, 0.201125, -0.214102, 0.00961361, 0.707041, 0.707107, 0.293595, -0.677968, 0.673914, 58.7627, 19.1811, 59.9609 )
+gravity_scale = 0.5
+
+[node name="Thatch94" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.994841, 0.0646506, -0.0781703, 0.00961361, 0.707041, 0.707107, 0.100985, -0.704211, 0.702773, 57.2896, 19.224, 59.6326 )
+gravity_scale = 0.5
+
+[node name="Thatch95" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.993942, -0.0841805, 0.0706595, 0.00961361, 0.707041, 0.707107, -0.109484, -0.702144, 0.703567, 55.7631, 19.1811, 59.6224 )
+gravity_scale = 0.5
+
+[node name="Thatch96" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.984036, -0.132361, 0.11897, 0.00961361, 0.707041, 0.707107, -0.17771, -0.694674, 0.697026, 54.517, 19.1811, 59.8211 )
+gravity_scale = 0.5
+
+[node name="Thatch97" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.930279, -0.265662, 0.25299, 0.00961361, 0.707041, 0.707107, -0.366725, -0.655375, 0.6603, 53.0574, 19.224, 60.2052 )
+gravity_scale = 0.5
+
+[node name="Thatch98" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.231434, -0.689512, 0.686302, 0.00961361, 0.707041, 0.707107, -0.972803, -0.157051, 0.170262, 45.7049, 15.4132, 64.1245 )
+gravity_scale = 0.5
+
+[node name="Thatch99" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.0510813, -0.706563, 0.705803, 0.00961361, 0.707041, 0.707107, -0.998648, -0.0293345, 0.0429092, 45.4969, 15.4232, 65.75 )
+gravity_scale = 0.5
+
+[node name="Thatch100" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.0684449, -0.705016, 0.705881, 0.00961361, 0.707041, 0.707107, -0.997608, 0.055184, -0.0416156, 45.5159, 15.4509, 67.2632 )
+gravity_scale = 0.5
+
+[node name="Thatch101" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.151751, -0.697917, 0.699916, 0.00961361, 0.707041, 0.707107, -0.988372, 0.114033, -0.100585, 45.6704, 15.5074, 68.7617 )
+gravity_scale = 0.5
+
+[node name="Thatch102" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.307689, -0.670739, 0.67486, 0.00961361, 0.707041, 0.707107, -0.951438, 0.224057, -0.2111, 46.0253, 15.5375, 70.3078 )
+gravity_scale = 0.5
+
+[node name="Thatch103" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.436559, -0.633221, 0.639098, 0.00961361, 0.707041, 0.707107, -0.899624, 0.314838, -0.302578, 46.5763, 15.4132, 71.8379 )
+gravity_scale = 0.5
+
+[node name="Thatch104" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.592546, -0.565584, 0.573588, 0.00961361, 0.707041, 0.707107, -0.805479, 0.424508, -0.413517, 47.4441, 15.4232, 73.228 )
+gravity_scale = 0.5
+
+[node name="Thatch105" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.684424, -0.51089, 0.520148, 0.00961361, 0.707041, 0.707107, -0.72902, 0.488962, -0.479005, 48.4166, 15.4509, 74.3875 )
+gravity_scale = 0.5
+
+[node name="Thatch106" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.743073, -0.468146, 0.478205, 0.00961361, 0.707041, 0.707107, -0.66914, 0.53003, -0.520883, 49.4848, 15.5074, 75.4499 )
+gravity_scale = 0.5
+
+[node name="Thatch107" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.840422, -0.377466, 0.388857, 0.00961361, 0.707041, 0.707107, -0.541847, 0.598006, -0.590585, 50.738, 15.5375, 76.4223 )
+gravity_scale = 0.5
+
+[node name="Thatch108" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.929597, -0.254239, 0.266854, 0.00961361, 0.707041, 0.707107, -0.368451, 0.65989, -0.65482, 52.1355, 15.4132, 77.2992 )
+gravity_scale = 0.5
+
+[node name="Thatch109" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.981021, -0.130284, 0.14361, 0.00961361, 0.707041, 0.707107, -0.193663, 0.695067, -0.69237, 53.7144, 15.4232, 77.7379 )
+gravity_scale = 0.5
+
+[node name="Thatch110" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.99712, -0.0464161, 0.0599685, 0.00961361, 0.707041, 0.707107, -0.0752214, 0.705647, -0.704559, 55.2147, 15.4509, 77.936 )
+gravity_scale = 0.5
+
+[node name="Thatch111" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.999917, 0.0128429, 0.000752724, 0.00961361, 0.707041, 0.707107, 0.00854889, 0.707055, -0.707106, 56.72, 15.5074, 77.9978 )
+gravity_scale = 0.5
+
+[node name="Thatch112" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.985711, 0.125625, -0.112212, 0.00961361, 0.707041, 0.707107, 0.168169, 0.695924, -0.698146, 58.3009, 15.5375, 77.8682 )
+gravity_scale = 0.5
+
+[node name="Thatch113" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.952899, 0.220846, -0.207871, 0.00961361, 0.707041, 0.707107, 0.303135, 0.671803, -0.675862, 59.8942, 15.4132, 77.5421 )
+gravity_scale = 0.5
+
+[node name="Thatch114" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.882079, 0.339076, -0.327053, 0.00961361, 0.707041, 0.707107, 0.471003, 0.62058, -0.626926, 61.3943, 15.4232, 76.8824 )
+gravity_scale = 0.5
+
+[node name="Thatch115" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.819575, 0.410703, -0.399523, 0.00961361, 0.707041, 0.707107, 0.57289, 0.575686, -0.583422, 62.6812, 15.4509, 76.0862 )
+gravity_scale = 0.5
+
+[node name="Thatch116" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.768718, 0.457473, -0.446979, 0.00961361, 0.707041, 0.707107, 0.639514, 0.539269, -0.547914, 63.8857, 15.5074, 75.1813 )
+gravity_scale = 0.5
+
+[node name="Thatch117" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.656689, 0.537742, -0.528765, 0.00961361, 0.707041, 0.707107, 0.7541, 0.459266, -0.469476, 65.0276, 15.5375, 74.0803 )
+gravity_scale = 0.5
+
+[node name="Thatch118" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.48994, 0.619774, -0.613056, 0.00961361, 0.707041, 0.707107, 0.871703, 0.340546, -0.352366, 66.0509, 15.4132, 72.6715 )
+gravity_scale = 0.5
+
+[node name="Thatch119" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.323641, 0.671277, -0.666815, 0.00961361, 0.707041, 0.707107, 0.946131, 0.222438, -0.235281, 66.6977, 15.4232, 71.1658 )
+gravity_scale = 0.5
+
+[node name="Thatch120" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.208434, 0.693023, -0.690126, 0.00961361, 0.707041, 0.707107, 0.977989, 0.14075, -0.154034, 67.0954, 15.4509, 69.7057 )
+gravity_scale = 0.5
+
+[node name="Thatch121" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.125798, 0.702376, -0.700601, 0.00961361, 0.707041, 0.707107, 0.992009, 0.0822169, -0.0956963, 67.3588, 15.5074, 68.2224 )
+gravity_scale = 0.5
+
+[node name="Thatch122" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.0342848, 0.70649, -0.706891, 0.00961361, 0.707041, 0.707107, 0.999366, -0.0310388, 0.0174489, 67.4427, 15.5375, 66.6384 )
+gravity_scale = 0.5
+
+[node name="Thatch123" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.172434, 0.695374, -0.697654, 0.00961361, 0.707041, 0.707107, 0.984974, -0.128636, 0.115233, 67.3335, 15.4132, 65.0157 )
+gravity_scale = 0.5
+
+[node name="Thatch124" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.348292, 0.660491, -0.665165, 0.00961361, 0.707041, 0.707107, 0.937337, -0.252674, 0.239907, 66.8813, 15.4232, 63.4406 )
+gravity_scale = 0.5
+
+[node name="Thatch125" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.457649, 0.625622, -0.631787, 0.00961361, 0.707041, 0.707107, 0.889081, -0.32968, 0.317562, 66.265, 15.4509, 62.0584 )
+gravity_scale = 0.5
+
+[node name="Thatch126" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.530499, 0.595815, -0.602972, 0.00961361, 0.707041, 0.707107, 0.847631, -0.380916, 0.369357, 65.53, 15.5074, 60.7433 )
+gravity_scale = 0.5
+
+[node name="Thatch127" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.65909, 0.527314, -0.536227, 0.00961361, 0.707041, 0.707107, 0.752002, -0.471202, 0.460935, 64.5924, 15.5375, 59.4639 )
+gravity_scale = 0.5
+
+[node name="Thatch128" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.790779, 0.427432, -0.438143, 0.00961361, 0.707041, 0.707107, 0.612025, -0.563378, 0.555005, 63.4079, 15.4232, 58.1748 )
+gravity_scale = 0.5
+
+[node name="Thatch129" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.858158, 0.357154, -0.368789, 0.00961361, 0.707041, 0.707107, 0.513295, -0.610355, 0.60332, 62.1546, 15.4509, 57.3266 )
+gravity_scale = 0.5
+
+[node name="Thatch130" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.89813, 0.304784, -0.316966, 0.00961361, 0.707041, 0.707107, 0.439623, -0.638121, 0.632086, 60.836, 15.5074, 56.598 )
+gravity_scale = 0.5
+
+[node name="Thatch131" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.956824, 0.198934, -0.211925, 0.00961361, 0.707041, 0.707107, 0.290508, -0.678614, 0.674602, 59.3641, 15.5375, 56.0067 )
+gravity_scale = 0.5
+
+[node name="Thatch132" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.234828, -0.68896, 0.685704, 0.00961361, 0.707041, 0.707107, -0.971989, -0.159457, 0.172657, 42.2686, 11.7088, 63.6949 )
+gravity_scale = 0.5
+
+[node name="Thatch133" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.107685, -0.703759, 0.70223, 0.00961361, 0.707041, 0.707107, -0.994138, -0.0693936, 0.0829031, 42.0056, 11.6536, 65.2201 )
+gravity_scale = 0.5
+
+[node name="Thatch134" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.0303253, -0.706608, 0.706955, 0.00961361, 0.707041, 0.707107, -0.999494, 0.0282396, -0.0146481, 41.9686, 11.6491, 66.8374 )
+gravity_scale = 0.5
+
+[node name="Thatch135" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.134462, -0.699803, 0.701567, 0.00961361, 0.707041, 0.707107, -0.990872, 0.101823, -0.0883425, 42.1113, 11.6468, 68.4603 )
+gravity_scale = 0.5
+
+[node name="Thatch136" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.187387, -0.693338, 0.695822, 0.00961361, 0.707041, 0.707107, -0.982239, 0.139192, -0.125825, 42.2966, 11.6248, 70.0443 )
+gravity_scale = 0.5
+
+[node name="Thatch137" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.29102, -0.674551, 0.678445, 0.00961361, 0.707041, 0.707107, -0.956668, 0.212305, -0.199279, 42.68, 11.6475, 71.685 )
+gravity_scale = 0.5
+
+[node name="Thatch138" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.372223, -0.653791, 0.658792, 0.00961361, 0.707041, 0.707107, -0.928093, 0.269535, -0.256892, 43.1424, 11.6211, 73.1987 )
+gravity_scale = 0.5
+
+[node name="Thatch139" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.518359, -0.601185, 0.608177, 0.00961361, 0.707041, 0.707107, -0.855109, 0.372382, -0.360722, 43.8734, 11.7088, 74.652 )
+gravity_scale = 0.5
+
+[node name="Thatch140" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.624176, -0.548217, 0.556652, 0.00961361, 0.707041, 0.707107, -0.781224, 0.44671, -0.436048, 44.7617, 11.6536, 75.9194 )
+gravity_scale = 0.5
+
+[node name="Thatch141" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.725867, -0.481435, 0.49126, 0.00961361, 0.707041, 0.707107, -0.687767, 0.517989, -0.50859, 45.8752, 11.6491, 77.093 )
+gravity_scale = 0.5
+
+[node name="Thatch142" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.793676, -0.424752, 0.435504, 0.00961361, 0.707041, 0.707107, -0.608264, 0.565401, -0.557079, 47.1201, 11.6468, 78.1439 )
+gravity_scale = 0.5
+
+[node name="Thatch143" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.825143, -0.393831, 0.405014, 0.00961361, 0.707041, 0.707107, -0.564842, 0.587358, -0.579624, 48.3678, 11.6248, 79.1371 )
+gravity_scale = 0.5
+
+[node name="Thatch144" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.88065, -0.328979, 0.340922, 0.00961361, 0.707041, 0.707107, -0.473669, 0.625991, -0.619494, 49.7961, 11.6475, 80.031 )
+gravity_scale = 0.5
+
+[node name="Thatch145" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.918126, -0.273919, 0.286377, 0.00961361, 0.707041, 0.707107, -0.396171, 0.651967, -0.64652, 51.1908, 11.6211, 80.7791 )
+gravity_scale = 0.5
+
+[node name="Thatch146" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.973021, -0.156401, 0.169615, 0.00961361, 0.707041, 0.707107, -0.230517, 0.68966, -0.686462, 53.1104, 11.7088, 81.3946 )
+gravity_scale = 0.5
+
+[node name="Thatch147" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.994606, -0.066273, 0.0797892, 0.00961361, 0.707041, 0.707107, -0.103276, 0.70406, -0.70259, 54.6367, 11.6536, 81.6507 )
+gravity_scale = 0.5
+
+[node name="Thatch148" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.999349, 0.0313719, -0.017782, 0.00961361, 0.707041, 0.707107, 0.0347559, 0.706476, -0.706883, 56.2542, 11.6491, 81.6806 )
+gravity_scale = 0.5
+
+[node name="Thatch149" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.990266, 0.104925, -0.0914517, 0.00961361, 0.707041, 0.707107, 0.138853, 0.699345, -0.701168, 57.8765, 11.6468, 81.5307 )
+gravity_scale = 0.5
+
+[node name="Thatch150" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.981398, 0.142264, -0.128909, 0.00961361, 0.707041, 0.707107, 0.19174, 0.692714, -0.695257, 59.4595, 11.6248, 81.3384 )
+gravity_scale = 0.5
+
+[node name="Thatch151" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.955369, 0.215293, -0.202284, 0.00961361, 0.707041, 0.707107, 0.295258, 0.673603, -0.677555, 61.0986, 11.6475, 80.9477 )
+gravity_scale = 0.5
+
+[node name="Thatch152" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.926434, 0.272431, -0.25981, 0.00961361, 0.707041, 0.707107, 0.376334, 0.65259, -0.657646, 62.6102, 11.6211, 80.4786 )
+gravity_scale = 0.5
+
+[node name="Thatch153" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.852802, 0.375044, -0.363414, 0.00961361, 0.707041, 0.707107, 0.522145, 0.599529, -0.606572, 64.0603, 11.7088, 79.7412 )
+gravity_scale = 0.5
+
+[node name="Thatch154" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.77845, 0.449136, -0.438511, 0.00961361, 0.707041, 0.707107, 0.627633, 0.546231, -0.554714, 65.3237, 11.6536, 78.8473 )
+gravity_scale = 0.5
+
+[node name="Thatch155" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.684542, 0.520118, -0.510763, 0.00961361, 0.707041, 0.707107, 0.728909, 0.479134, -0.489, 66.4923, 11.6491, 77.7286 )
+gravity_scale = 0.5
+
+[node name="Thatch156" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.60474, 0.567278, -0.559004, 0.00961361, 0.707041, 0.707107, 0.796365, 0.422242, -0.43303, 67.5377, 11.6468, 76.479 )
+gravity_scale = 0.5
+
+[node name="Thatch157" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.561178, 0.589098, -0.581414, 0.00961361, 0.707041, 0.707107, 0.827639, 0.391224, -0.40244, 68.5254, 11.6248, 75.227 )
+gravity_scale = 0.5
+
+[node name="Thatch158" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.46976, 0.627443, -0.620999, 0.00961361, 0.707041, 0.707107, 0.882742, 0.3262, -0.338172, 69.4129, 11.6475, 73.7947 )
+gravity_scale = 0.5
+
+[node name="Thatch159" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.392096, 0.653175, -0.647783, 0.00961361, 0.707041, 0.707107, 0.919874, 0.271026, -0.283508, 70.1549, 11.6211, 72.3967 )
+gravity_scale = 0.5
+
+[node name="Thatch160" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.301144, 0.676357, -0.6722, 0.00961361, 0.707041, 0.707107, 0.95353, 0.206478, -0.219423, 70.7126, 11.7088, 70.8988 )
+gravity_scale = 0.5
+
+[node name="Thatch161" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.175825, 0.697317, -0.694862, 0.00961361, 0.707041, 0.707107, 0.984374, 0.117647, -0.131019, 71.0798, 11.6536, 69.3954 )
+gravity_scale = 0.5
+
+[node name="Thatch162" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.0385105, 0.706877, -0.706288, 0.00961361, 0.707041, 0.707107, 0.999212, 0.0204411, -0.0340243, 71.228, 11.6491, 67.7844 )
+gravity_scale = 0.5
+
+[node name="Thatch163" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.0659721, 0.70515, -0.705982, 0.00961361, 0.707041, 0.707107, 0.997775, -0.0534365, 0.0398661, 71.1974, 11.6468, 66.1555 )
+gravity_scale = 0.5
+
+[node name="Thatch164" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.119366, 0.701271, -0.70283, 0.00961361, 0.707041, 0.707107, 0.992803, -0.0911614, 0.0776553, 71.1215, 11.6248, 64.5626 )
+gravity_scale = 0.5
+
+[node name="Thatch165" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.224513, 0.687559, -0.690548, 0.00961361, 0.707041, 0.707107, 0.974423, -0.165393, 0.15213, 70.8518, 11.6475, 62.8993 )
+gravity_scale = 0.5
+
+[node name="Thatch166" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.307489, 0.670786, -0.674904, 0.00961361, 0.707041, 0.707107, 0.951503, -0.223916, 0.210959, 70.4947, 11.6211, 61.3574 )
+gravity_scale = 0.5
+
+[node name="Thatch167" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.4583, 0.62538, -0.631554, 0.00961361, 0.707041, 0.707107, 0.888745, -0.330139, 0.318025, 69.8654, 11.7088, 59.8573 )
+gravity_scale = 0.5
+
+[node name="Thatch168" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.56895, 0.577651, -0.585333, 0.00961361, 0.707041, 0.707107, 0.822316, -0.407935, 0.396718, 69.0664, 11.6536, 58.5318 )
+gravity_scale = 0.5
+
+[node name="Thatch169" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.67683, 0.515932, -0.525086, 0.00961361, 0.707041, 0.707107, 0.736076, -0.483639, 0.473587, 68.0363, 11.6491, 57.2843 )
+gravity_scale = 0.5
+
+[node name="Thatch170" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.749947, 0.462645, -0.472798, 0.00961361, 0.707041, 0.707107, 0.661427, -0.534838, 0.525797, 66.8667, 11.6468, 56.1503 )
+gravity_scale = 0.5
+
+[node name="Thatch171" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.784327, 0.433308, -0.443931, 0.00961361, 0.707041, 0.707107, 0.620272, -0.558871, 0.550386, 65.6902, 11.6248, 55.0736 )
+gravity_scale = 0.5
+
+[node name="Thatch172" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.845976, 0.371267, -0.382734, 0.00961361, 0.707041, 0.707107, 0.533134, -0.601875, 0.594571, 64.3269, 11.6475, 54.0835 )
+gravity_scale = 0.5
+
+[node name="Thatch173" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.888695, 0.318125, -0.330178, 0.00961361, 0.707041, 0.707107, 0.458398, -0.631576, 0.625286, 62.9869, 11.6211, 53.2412 )
+gravity_scale = 0.5
+
+[node name="Thatch174" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.941696, 0.231439, -0.244221, 0.00961361, 0.707041, 0.707107, 0.336326, -0.668228, 0.663594, 61.6237, 11.6248, 52.6574 )
+gravity_scale = 0.5
+
+[node name="Thatch175" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.972181, 0.158891, -0.172094, 0.00961361, 0.707041, 0.707107, 0.234031, -0.68909, 0.685845, 60.015, 11.6475, 52.1563 )
+gravity_scale = 0.5
+
+[node name="Thatch176" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.988707, 0.0990351, -0.112468, 0.00961361, 0.707041, 0.707107, 0.149548, -0.700203, 0.698105, 58.7271, 11.1288, 51.1655 )
+gravity_scale = 0.5
+
+[node name="Thatch177" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.177474, -0.697119, 0.694642, 0.00961361, 0.707041, 0.707107, -0.984078, -0.118815, 0.132183, 38.6046, 8.22765, 63.7356 )
+gravity_scale = 0.5
+
+[node name="Thatch178" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.0633824, -0.706148, 0.705221, 0.00961361, 0.707041, 0.707107, -0.997943, -0.0380384, 0.0516026, 38.4341, 8.2604, 65.1995 )
+gravity_scale = 0.5
+
+[node name="Thatch179" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.0177805, -0.706907, 0.707083, 0.00961361, 0.707041, 0.707107, -0.999795, 0.0193704, -0.00577568, 38.2863, 8.17901, 66.885 )
+gravity_scale = 0.5
+
+[node name="Thatch180" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.101448, -0.702801, 0.704116, 0.00961361, 0.707041, 0.707107, -0.994794, 0.0785039, -0.0649718, 38.4202, 8.07649, 68.5419 )
+gravity_scale = 0.5
+
+[node name="Thatch181" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.200861, -0.691361, 0.694028, 0.00961361, 0.707041, 0.707107, -0.979572, 0.148702, -0.135371, 38.6778, 8.1062, 70.2807 )
+gravity_scale = 0.5
+
+[node name="Thatch182" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.259057, -0.681236, 0.684695, 0.00961361, 0.707041, 0.707107, -0.965814, 0.189764, -0.176615, 39.1068, 8.17, 71.8804 )
+gravity_scale = 0.5
+
+[node name="Thatch183" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.324989, -0.666541, 0.670898, 0.00961361, 0.707041, 0.707107, -0.945668, 0.236252, -0.223373, 39.5765, 8.20411, 73.4387 )
+gravity_scale = 0.5
+
+[node name="Thatch184" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.364175, -0.6561, 0.660991, 0.00961361, 0.707041, 0.707107, -0.931281, 0.263865, -0.251179, 40.1224, 8.11747, 75.1345 )
+gravity_scale = 0.5
+
+[node name="Thatch185" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.434423, -0.633967, 0.639815, 0.00961361, 0.707041, 0.707107, -0.900658, 0.313334, -0.30106, 40.8889, 8.10804, 76.6845 )
+gravity_scale = 0.5
+
+[node name="Thatch186" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.609257, -0.556585, 0.564817, 0.00961361, 0.707041, 0.707107, -0.792914, 0.43624, -0.425419, 41.9603, 8.22765, 78.3502 )
+gravity_scale = 0.5
+
+[node name="Thatch187" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.696217, -0.502852, 0.512271, 0.00961361, 0.707041, 0.707107, -0.717767, 0.497225, -0.48742, 42.9294, 8.2604, 79.4604 )
+gravity_scale = 0.5
+
+[node name="Thatch188" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.752148, -0.460859, 0.471043, 0.00961361, 0.707041, 0.707107, -0.658923, 0.536378, -0.52737, 44.078, 8.17901, 80.7029 )
+gravity_scale = 0.5
+
+[node name="Thatch189" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.804689, -0.41432, 0.425222, 0.00961361, 0.707041, 0.707107, -0.593618, 0.573089, -0.564966, 45.3726, 8.12687, 81.8089 )
+gravity_scale = 0.5
+
+[node name="Thatch190" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.860247, -0.354659, 0.366322, 0.00961361, 0.707041, 0.707107, -0.509786, 0.611808, -0.604821, 46.8436, 8.1272, 82.8308 )
+gravity_scale = 0.5
+
+[node name="Thatch191" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.889182, -0.317452, 0.329512, 0.00961361, 0.707041, 0.707107, -0.457452, 0.631915, -0.625637, 48.3058, 8.22038, 83.5449 )
+gravity_scale = 0.5
+
+[node name="Thatch192" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.918589, -0.273157, 0.285621, 0.00961361, 0.707041, 0.707107, -0.395097, 0.652286, -0.646855, 49.8033, 8.25449, 84.2449 )
+gravity_scale = 0.5
+
+[node name="Thatch193" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.954378, -0.204565, 0.217522, 0.00961361, 0.707041, 0.707107, -0.298446, 0.676938, -0.672818, 51.4355, 8.19599, 84.8582 )
+gravity_scale = 0.5
+
+[node name="Thatch194" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.967835, -0.171205, 0.184347, 0.0121185, 0.700168, 0.713875, -0.251293, 0.693147, -0.675573, 52.9583, 8.15842, 85.2273 )
+gravity_scale = 0.5
+
+[node name="Thatch195" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.995484, -0.0600158, 0.0735446, 0.00961361, 0.707041, 0.707107, -0.0944366, 0.704621, -0.703272, 54.7583, 8.22, 85.59 )
+gravity_scale = 0.5
+
+[node name="Thatch196" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.999888, 0.0148914, -0.0012958, 0.00961361, 0.707041, 0.707107, 0.0114459, 0.707015, -0.707105, 56.3172, 8.26426, 85.711 )
+gravity_scale = 0.5
+
+[node name="Thatch197" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.987166, 0.119438, -0.106006, 0.00961361, 0.707041, 0.707107, 0.159406, 0.697013, -0.699116, 58.0016, 8.17901, 85.5657 )
+gravity_scale = 0.5
+
+[node name="Thatch198" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.979323, 0.149559, -0.13623, 0.00961361, 0.707041, 0.707107, 0.202075, 0.691176, -0.69386, 59.7098, 8.10785, 85.2787 )
+gravity_scale = 0.5
+
+[node name="Thatch199" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.954071, 0.21823, -0.205239, 0.00961361, 0.707041, 0.707107, 0.299424, 0.672657, -0.676666, 61.4134, 8.13755, 84.8457 )
+gravity_scale = 0.5
+
+[node name="Thatch200" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.934467, 0.258049, -0.245321, 0.00961361, 0.707041, 0.707107, 0.35592, 0.658409, -0.663188, 62.9612, 8.20135, 84.2562 )
+gravity_scale = 0.5
+
+[node name="Thatch201" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.907721, 0.302802, -0.290433, 0.00961361, 0.707041, 0.707107, 0.419462, 0.639064, -0.644708, 64.4637, 8.23546, 83.6306 )
+gravity_scale = 0.5
+
+[node name="Thatch202" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.865628, 0.359891, -0.348089, 0.00961361, 0.707041, 0.707107, 0.500594, 0.608745, -0.615495, 66.1322, 8.14882, 82.7751 )
+gravity_scale = 0.5
+
+[node name="Thatch203" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.824751, 0.405451, -0.394201, 0.00961361, 0.707041, 0.707107, 0.565414, 0.579397, -0.587031, 67.5487, 8.1394, 81.7834 )
+gravity_scale = 0.5
+
+[node name="Thatch204" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.657031, 0.537534, -0.528552, 0.00961361, 0.707041, 0.707107, 0.753802, 0.45951, -0.469716, 69.0434, 8.17901, 80.4722 )
+gravity_scale = 0.5
+
+[node name="Thatch205" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.623716, 0.55696, -0.548428, 0.00961361, 0.707041, 0.707107, 0.781591, 0.435762, -0.446348, 70.1731, 8.10785, 79.1592 )
+gravity_scale = 0.5
+
+[node name="Thatch206" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.542052, 0.597914, -0.59049, 0.00961361, 0.707041, 0.707107, 0.84029, 0.377612, -0.389001, 71.206, 8.13755, 77.7369 )
+gravity_scale = 0.5
+
+[node name="Thatch207" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.490853, 0.619417, -0.612687, 0.00961361, 0.707041, 0.707107, 0.871189, 0.341195, -0.353008, 72.0191, 8.20135, 76.294 )
+gravity_scale = 0.5
+
+[node name="Thatch208" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.429658, 0.641455, -0.635554, 0.00961361, 0.707041, 0.707107, 0.90294, 0.297704, -0.309953, 72.7742, 8.23546, 74.8522 )
+gravity_scale = 0.5
+
+[node name="Thatch209" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.345416, 0.665959, -0.661201, 0.00961361, 0.707041, 0.707107, 0.9384, 0.237889, -0.250625, 73.51, 8.14882, 73.1275 )
+gravity_scale = 0.5
+
+[node name="Thatch210" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.272539, 0.68222, -0.678452, 0.00961361, 0.707041, 0.707107, 0.962097, 0.186192, -0.199255, 73.9648, 8.1394, 71.4593 )
+gravity_scale = 0.5
+
+[node name="Thatch211" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.0824592, 0.705291, -0.704105, 0.00961361, 0.707041, 0.707107, 0.996548, 0.0515384, -0.0650823, 74.3189, 8.0048, 69.6063 )
+gravity_scale = 0.5
+
+[node name="Thatch212" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.0391559, 0.706863, -0.706266, 0.00961361, 0.707041, 0.707107, 0.999187, 0.0208977, -0.0344804, 74.4507, 7.93364, 67.8792 )
+gravity_scale = 0.5
+
+[node name="Thatch213" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.0614089, 0.705387, -0.706157, 0.00961361, 0.707041, 0.707107, 0.998066, -0.0502114, 0.0366374, 74.4397, 7.96334, 66.1214 )
+gravity_scale = 0.5
+
+[node name="Thatch214" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.12096, 0.701124, -0.702704, 0.00961361, 0.707041, 0.707107, 0.992611, -0.0922873, 0.0787836, 74.2395, 8.02714, 64.4774 )
+gravity_scale = 0.5
+
+[node name="Thatch215" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.189067, 0.693099, -0.695606, 0.00961361, 0.707041, 0.707107, 0.981916, -0.140378, 0.127015, 73.9931, 8.06125, 62.8685 )
+gravity_scale = 0.5
+
+[node name="Thatch216" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.321207, 0.66748, -0.671785, 0.00961361, 0.707041, 0.707107, 0.94696, -0.233586, 0.22069, 73.5999, 8.02998, 61.0284 )
+gravity_scale = 0.5
+
+[node name="Thatch217" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.392782, 0.647632, -0.652912, 0.00961361, 0.707041, 0.707107, 0.919581, -0.284016, 0.271487, 72.9051, 8.02055, 59.445 )
+gravity_scale = 0.5
+
+[node name="Thatch218" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.56701, 0.578611, -0.586266, 0.00961361, 0.707041, 0.707107, 0.823654, -0.406573, 0.395338, 71.9796, 8.0048, 57.5191 )
+gravity_scale = 0.5
+
+[node name="Thatch219" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.602203, 0.560431, -0.568567, 0.00961361, 0.707041, 0.707107, 0.798285, -0.431288, 0.420395, 70.9883, 7.93364, 56.0987 )
+gravity_scale = 0.5
+
+[node name="Thatch220" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.679344, 0.514274, -0.523463, 0.00961361, 0.707041, 0.707107, 0.733757, -0.485401, 0.47538, 69.8671, 7.96334, 54.7449 )
+gravity_scale = 0.5
+
+[node name="Thatch221" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.72199, 0.484339, -0.49411, 0.00961361, 0.707041, 0.707107, 0.691836, -0.515275, 0.505821, 68.6713, 8.02714, 53.599 )
+gravity_scale = 0.5
+
+[node name="Thatch222" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.767944, 0.447684, -0.458083, 0.00961361, 0.707041, 0.707107, 0.640444, -0.547423, 0.538665, 67.4622, 8.06125, 52.5095 )
+gravity_scale = 0.5
+
+[node name="Thatch223" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.848109, 0.368848, -0.380344, 0.00961361, 0.707041, 0.707107, 0.529734, -0.60336, 0.596102, 65.9929, 8.02998, 51.3339 )
+gravity_scale = 0.5
+
+[node name="Thatch224" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.886185, 0.321559, -0.333578, 0.00961361, 0.707041, 0.707107, 0.46323, -0.629834, 0.623479, 64.4527, 8.02055, 50.548 )
+gravity_scale = 0.5
+
+[node name="Thatch225" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.870528, 0.342027, -0.353831, 0.00961361, 0.707041, 0.707107, 0.492023, -0.618958, 0.612212, 62.8438, 7.85127, 49.5287 )
+gravity_scale = 0.5
+
+[node name="Thatch226" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.953606, 0.272068, -0.128894, -0.14579, 0.791917, 0.592969, 0.263401, -0.546668, 0.794842, 59.0875, 8.32867, 47.3236 )
+gravity_scale = 0.5
+
+[node name="Thatch227" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.924927, 0.345344, -0.158892, -0.190189, 0.782292, 0.593168, 0.329147, -0.518418, 0.789244, 60.5448, 7.23213, 47.2417 )
+gravity_scale = 0.5
+
+[node name="Thatch228" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.915413, 0.349779, -0.19918, -0.100553, 0.67787, 0.728273, 0.389752, -0.646642, 0.655703, 60.9654, 8.35383, 48.9101 )
+gravity_scale = 0.5
+
+[node name="Thatch229" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.2077, -0.693129, 0.690241, 0.00961361, 0.707041, 0.707107, -0.978145, -0.14023, 0.153516, 34.6254, 4.17662, 64.2963 )
+gravity_scale = 0.5
+
+[node name="Thatch230" parent="." instance=ExtResource( 15 )]
+transform = Transform( 5.49257e-05, -0.70714, 0.707074, 0.00961361, 0.707041, 0.707107, -0.999954, 0.00675873, 0.00683702, 34.4397, 4.16954, 66.0175 )
+gravity_scale = 0.5
+
+[node name="Thatch231" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.105493, -0.702476, 0.703846, 0.00961361, 0.707041, 0.707107, -0.994373, 0.0813613, -0.0678347, 34.5159, 4.10982, 67.8015 )
+gravity_scale = 0.5
+
+[node name="Thatch232" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.159354, -0.697019, 0.699121, 0.00961361, 0.707041, 0.707107, -0.987174, 0.119402, -0.105969, 34.7451, 4.09604, 69.7329 )
+gravity_scale = 0.5
+
+[node name="Thatch233" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.315003, -0.668995, 0.673216, 0.00961361, 0.707041, 0.707107, -0.949042, 0.229213, -0.216288, 35.1603, 4.11707, 71.6488 )
+gravity_scale = 0.5
+
+[node name="Thatch234" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.315003, -0.668995, 0.673216, 0.00961361, 0.707041, 0.707107, -0.949042, 0.229213, -0.216288, 35.772, 4.11707, 73.4984 )
+gravity_scale = 0.5
+
+[node name="Thatch235" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.38653, -0.649545, 0.654741, 0.00961361, 0.707041, 0.707107, -0.922227, 0.279612, -0.267048, 36.4814, 4.11707, 75.2225 )
+gravity_scale = 0.5
+
+[node name="Thatch236" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.430694, -0.635257, 0.641054, 0.00961361, 0.707041, 0.707107, -0.902447, 0.310709, -0.298411, 37.2937, 4.10513, 77.0364 )
+gravity_scale = 0.5
+
+[node name="Thatch237" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.466038, -0.622476, 0.628754, 0.00961361, 0.707041, 0.707107, -0.884712, 0.335584, -0.323524, 38.0408, 4.10513, 78.7696 )
+gravity_scale = 0.5
+
+[node name="Thatch238" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.536801, -0.592959, 0.600203, 0.00961361, 0.707041, 0.707107, -0.843654, 0.385346, -0.37384, 38.9526, 4.10513, 80.4586 )
+gravity_scale = 0.5
+
+[node name="Thatch239" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.587728, -0.568108, 0.576046, 0.00961361, 0.707041, 0.707107, -0.809001, 0.421124, -0.410086, 39.9156, 4.10513, 81.9966 )
+gravity_scale = 0.5
+
+[node name="Thatch240" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.668202, -0.521535, 0.530572, 0.00961361, 0.707041, 0.707107, -0.743917, 0.477591, -0.467433, 41.1678, 4.17662, 83.4716 )
+gravity_scale = 0.5
+
+[node name="Thatch241" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.808115, -0.410992, 0.421941, 0.00961361, 0.707041, 0.707107, -0.588946, 0.57548, -0.56742, 42.4495, 4.16954, 84.6354 )
+gravity_scale = 0.5
+
+[node name="Thatch242" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.865766, -0.347953, 0.359692, 0.00961361, 0.707041, 0.707107, -0.500357, 0.615647, -0.608787, 43.9361, 4.10982, 85.6245 )
+gravity_scale = 0.5
+
+[node name="Thatch243" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.891668, -0.313996, 0.32609, 0.00961361, 0.707041, 0.707107, -0.452587, 0.63364, -0.627428, 45.632, 4.09604, 86.5767 )
+gravity_scale = 0.5
+
+[node name="Thatch244" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.952516, -0.208744, 0.221675, 0.00961361, 0.707041, 0.707107, -0.304337, 0.675661, -0.671461, 47.425, 4.11707, 87.3694 )
+gravity_scale = 0.5
+
+[node name="Thatch245" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.952516, -0.208744, 0.221675, 0.00961361, 0.707041, 0.707107, -0.304337, 0.675661, -0.671461, 49.28, 4.11707, 87.9643 )
+gravity_scale = 0.5
+
+[node name="Thatch246" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.972968, -0.156557, 0.169771, 0.00961361, 0.707041, 0.707107, -0.230738, 0.689624, -0.686424, 51.0913, 4.11707, 88.4064 )
+gravity_scale = 0.5
+
+[node name="Thatch247" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.982992, -0.123011, 0.136364, 0.00961361, 0.707041, 0.707107, -0.183396, 0.696391, -0.693834, 53.0356, 4.10513, 88.8182 )
+gravity_scale = 0.5
+
+[node name="Thatch248" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.989475, -0.0953798, 0.108824, 0.00961361, 0.707041, 0.707107, -0.144387, 0.70071, -0.698683, 54.8763, 4.10513, 89.2351 )
+gravity_scale = 0.5
+
+[node name="Thatch249" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.999861, 0.0163969, -0.00280149, 0.00961361, 0.707041, 0.707107, 0.013575, 0.706982, -0.707101, 56.8604, 4.10513, 89.3664 )
+gravity_scale = 0.5
+
+[node name="Thatch250" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.997128, 0.0598955, -0.0463332, 0.00961361, 0.707041, 0.707107, 0.0751118, 0.704631, -0.705587, 58.6749, 4.10513, 89.3549 )
+gravity_scale = 0.5
+
+[node name="Thatch251" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.995111, 0.0762712, -0.0627348, 0.00961361, 0.707041, 0.707107, 0.0982879, 0.703047, -0.704318, 60.6383, 4.10513, 89.2063 )
+gravity_scale = 0.5
+
+[node name="Thatch252" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.979621, 0.148533, -0.135201, 0.00961361, 0.707041, 0.707107, 0.200622, 0.691397, -0.694061, 62.5439, 4.17662, 88.8712 )
+gravity_scale = 0.5
+
+[node name="Thatch253" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.916608, 0.288868, -0.276379, 0.00961361, 0.707041, 0.707107, 0.399672, 0.645482, -0.650856, 64.1959, 4.16954, 88.3534 )
+gravity_scale = 0.5
+
+[node name="Thatch254" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.869301, 0.355387, -0.343535, 0.00961361, 0.707041, 0.707107, 0.49419, 0.611386, -0.618048, 65.8007, 4.10982, 87.5704 )
+gravity_scale = 0.5
+
+[node name="Thatch255" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.841171, 0.388074, -0.376602, 0.00961361, 0.707041, 0.707107, 0.540683, 0.591178, -0.598474, 67.4794, 4.09604, 86.5883 )
+gravity_scale = 0.5
+
+[node name="Thatch256" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.743999, 0.477527, -0.467368, 0.00961361, 0.707041, 0.707107, 0.668111, 0.521594, -0.530629, 69.0696, 4.11707, 85.4418 )
+gravity_scale = 0.5
+
+[node name="Thatch257" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.743999, 0.477527, -0.467368, 0.00961361, 0.707041, 0.707107, 0.668111, 0.521594, -0.530629, 70.5205, 4.11707, 84.1418 )
+gravity_scale = 0.5
+
+[node name="Thatch258" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.690827, 0.51595, -0.506511, 0.00961361, 0.707041, 0.707107, 0.722956, 0.483619, -0.493404, 71.8173, 4.11707, 82.8023 )
+gravity_scale = 0.5
+
+[node name="Thatch259" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.655042, 0.538743, -0.529788, 0.00961361, 0.707041, 0.707107, 0.755531, 0.458092, -0.468321, 73.1552, 4.10513, 81.3326 )
+gravity_scale = 0.5
+
+[node name="Thatch260" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.624657, 0.556435, -0.54789, 0.00961361, 0.707041, 0.707107, 0.78084, 0.436432, -0.447008, 74.4453, 4.10513, 79.955 )
+gravity_scale = 0.5
+
+[node name="Thatch261" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.493602, 0.618337, -0.611569, 0.00961361, 0.707041, 0.707107, 0.869634, 0.34315, -0.354942, 75.5613, 4.10513, 78.3093 )
+gravity_scale = 0.5
+
+[node name="Thatch262" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.439122, 0.638292, -0.632263, 0.00961361, 0.707041, 0.707107, 0.898376, 0.304427, -0.316613, 76.4685, 4.10513, 76.7378 )
+gravity_scale = 0.5
+
+[node name="Thatch263" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.363708, 0.661177, -0.656171, 0.00961361, 0.707041, 0.707107, 0.931463, 0.250872, -0.263513, 77.2059, 4.10513, 75.183 )
+gravity_scale = 0.5
+
+[node name="Thatch264" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.265479, 0.683567, -0.679895, 0.00961361, 0.707041, 0.707107, 0.964069, 0.181186, -0.194276, 77.7716, 4.17662, 73.3326 )
+gravity_scale = 0.5
+
+[node name="Thatch265" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.145734, 0.70058, -0.698534, 0.00961361, 0.707041, 0.707107, 0.989277, 0.0963337, -0.109775, 78.2458, 4.16954, 71.6233 )
+gravity_scale = 0.5
+
+[node name="Thatch266" parent="." instance=ExtResource( 15 )]
+transform = Transform( -0.0404987, 0.706834, -0.706219, 0.00961361, 0.707041, 0.707107, 0.999133, 0.0218476, -0.0354294, 78.4303, 4.10982, 69.8473 )
+gravity_scale = 0.5
+
+[node name="Thatch267" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.0138369, 0.706978, -0.707101, 0.00961361, 0.707041, 0.707107, 0.999858, -0.0165818, 0.00298659, 78.4849, 4.09604, 67.9031 )
+gravity_scale = 0.5
+
+[node name="Thatch268" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.17338, 0.69525, -0.697543, 0.00961361, 0.707041, 0.707107, 0.984808, -0.129304, 0.115903, 78.3532, 4.11707, 65.9471 )
+gravity_scale = 0.5
+
+[node name="Thatch269" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.17338, 0.69525, -0.697543, 0.00961361, 0.707041, 0.707107, 0.984808, -0.129304, 0.115903, 78.0175, 4.11707, 64.0282 )
+gravity_scale = 0.5
+
+[node name="Thatch270" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.24805, 0.683351, -0.68666, 0.00961361, 0.707041, 0.707107, 0.968699, -0.181999, 0.168812, 77.5669, 4.11707, 62.2191 )
+gravity_scale = 0.5
+
+[node name="Thatch271" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.294625, 0.673746, -0.677689, 0.00961361, 0.707041, 0.707107, 0.955565, -0.214846, 0.201835, 77.0275, 4.10513, 60.3062 )
+gravity_scale = 0.5
+
+[node name="Thatch272" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.332176, 0.664724, -0.669179, 0.00961361, 0.707041, 0.707107, 0.943168, -0.241317, 0.228472, 76.5408, 4.10513, 58.4827 )
+gravity_scale = 0.5
+
+[node name="Thatch273" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.476858, 0.618311, -0.624738, 0.00961361, 0.707041, 0.707107, 0.878927, -0.343196, 0.331215, 75.7347, 4.10513, 56.665 )
+gravity_scale = 0.5
+
+[node name="Thatch274" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.53007, 0.596007, -0.603159, 0.00961361, 0.707041, 0.707107, 0.847899, -0.380615, 0.369052, 74.881, 4.10513, 55.0638 )
+gravity_scale = 0.5
+
+[node name="Thatch275" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.662326, 0.525278, -0.534235, 0.00961361, 0.707041, 0.707107, 0.749154, -0.473471, 0.463242, 73.5311, 4.11707, 53.337 )
+gravity_scale = 0.5
+
+[node name="Thatch276" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.717581, 0.487603, -0.497314, 0.00961361, 0.707041, 0.707107, 0.696409, -0.512187, 0.502672, 72.2017, 4.11707, 52.0298 )
+gravity_scale = 0.5
+
+[node name="Thatch277" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.750432, 0.462253, -0.472413, 0.00961361, 0.707041, 0.707107, 0.660877, -0.535178, 0.526143, 70.7425, 4.10513, 50.6805 )
+gravity_scale = 0.5
+
+[node name="Thatch278" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.775976, 0.440731, -0.45124, 0.00961361, 0.707041, 0.707107, 0.630689, -0.553036, 0.54441, 69.3748, 4.10513, 49.3798 )
+gravity_scale = 0.5
+
+[node name="Thatch279" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.865783, 0.347932, -0.35967, 0.00961361, 0.707041, 0.707107, 0.500327, -0.615659, 0.6088, 67.7378, 4.10513, 48.2511 )
+gravity_scale = 0.5
+
+[node name="Thatch280" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.894946, 0.309365, -0.321503, 0.00961361, 0.707041, 0.707107, 0.44607, -0.635913, 0.62979, 66.1734, 4.10513, 47.3318 )
+gravity_scale = 0.5
+
+[node name="Thatch281" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.871625, 0.479337, -0.102503, -0.30871, 0.699242, 0.644794, 0.380748, -0.530374, 0.757453, 62.3328, 6.10088, 47.486 )
+gravity_scale = 0.5
+
+[node name="Thatch282" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.894946, 0.309365, -0.321503, 0.00961361, 0.707041, 0.707107, 0.44607, -0.635913, 0.62979, 64.5835, 4.10513, 46.5243 )
+gravity_scale = 0.5

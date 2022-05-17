@@ -1,8 +1,8 @@
 {
 	"contains_albedo": false,
-	"resolution": 1024,
+	"resolution": 4096,
 	"src": {
-		"a": "res://assets/textures/terrain/rock/Rock046S_1K_Roughness.jpg",
-		"rgb": "res://assets/textures/terrain/rock/Rock046S_1K_NormalDX.jpg"
+		"a": "res://assets/textures/terrain/ph_burned_ground_4k/burned_ground_01_rough_4k.jpg",
+		"rgb": "res://assets/textures/terrain/ph_burned_ground_4k/burned_ground_01_nor_gl_4k.png"
 	}
 }

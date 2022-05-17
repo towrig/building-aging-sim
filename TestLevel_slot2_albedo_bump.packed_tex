@@ -1,0 +1,8 @@
+{
+	"contains_albedo": true,
+	"resolution": 4096,
+	"src": {
+		"a": "res://assets/textures/terrain/ph_ground_4k/dry_ground_rocks_disp_4k.png",
+		"rgb": "res://assets/textures/terrain/ph_ground_4k/dry_ground_rocks_diff_4k.jpg"
+	}
+}

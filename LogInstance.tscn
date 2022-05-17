@@ -6,6 +6,7 @@
 [ext_resource path="res://assets/log.obj" type="ArrayMesh" id=5]
 
 [node name="Log" type="RigidBody"]
+mode = 1
 mass = 1884.96
 contact_monitor = true
 script = ExtResource( 3 )

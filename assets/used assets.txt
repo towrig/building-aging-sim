@@ -1,0 +1,14 @@
+-------BUILDING MATERIALS:---------
+
+noise textures - https://luos.gumroad.com/l/FreeNoise
+ph_bark03_textures (wood) - https://polyhaven.com/a/tree_bark_03
+wood end - https://www.dreamstime.com/stock-photo-end-log-wood-texture-image83568805
+ph_reed_new_textures (thatch) - https://polyhaven.com/a/reed_roof_04
+ph_reed_old_textures (thatch but old)- https://polyhaven.com/a/riet_01
+wattle and daub - https://www.filterforge.com/filters/10878.html
+
+-------------TERRAIN:--------------
+
+grass - https://polyhaven.com/a/forest_leaves_02
+indoors - https://polyhaven.com/a/dry_ground_rocks
+burnt - https://polyhaven.com/a/burned_ground_01
